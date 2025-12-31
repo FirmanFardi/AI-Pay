@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'pool-fund': 'Pool Fund',
             'payout': 'Payout',
             'settlement': 'Settlement',
-            'reports': 'Reports'
+            'reports': 'Reports',
+            'payment-form': 'Payment Form'
         };
 
         const breadcrumbText = pageNames[page] || page;
@@ -133,5 +134,140 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // FPX Payment Channels Data
+    const fpxChannels = [
+        { id: 'fpx-mb2u', name: 'Maybank2u', code: 'MB2U', logo: '🏦', status: 'active' },
+        { id: 'fpx-cimb', name: 'CIMB Clicks', code: 'CIMB', logo: '🏦', status: 'active' },
+        { id: 'fpx-pbb', name: 'Public Bank', code: 'PBB', logo: '🏦', status: 'active' },
+        { id: 'fpx-rhb', name: 'RHB Bank', code: 'RHB', logo: '🏦', status: 'active' },
+        { id: 'fpx-hlb', name: 'Hong Leong Bank', code: 'HLB', logo: '🏦', status: 'active' },
+        { id: 'fpx-amb', name: 'AmBank', code: 'AMB', logo: '🏦', status: 'active' },
+        { id: 'fpx-uob', name: 'UOB Bank', code: 'UOB', logo: '🏦', status: 'active' },
+        { id: 'fpx-ocbc', name: 'OCBC Bank', code: 'OCBC', logo: '🏦', status: 'active' },
+        { id: 'fpx-hsbc', name: 'HSBC Bank', code: 'HSBC', logo: '🏦', status: 'active' },
+        { id: 'fpx-standard', name: 'Standard Chartered', code: 'SCB', logo: '🏦', status: 'active' },
+        { id: 'fpx-affin', name: 'Affin Bank', code: 'ABB', logo: '🏦', status: 'active' },
+        { id: 'fpx-alliance', name: 'Alliance Bank', code: 'ABMB', logo: '🏦', status: 'active' },
+        { id: 'fpx-bimb', name: 'Bank Islam', code: 'BIMB', logo: '🏦', status: 'active' },
+        { id: 'fpx-bsn', name: 'Bank Simpanan Nasional', code: 'BSN', logo: '🏦', status: 'active' },
+        { id: 'fpx-bkrm', name: 'Bank Rakyat', code: 'BKRM', logo: '🏦', status: 'active' }
+    ];
+
+    // Initialize Payment Form Page
+    function initializePaymentForm() {
+        const paymentFormPage = document.getElementById('payment-form-page');
+        if (!paymentFormPage) return;
+
+        const fpxChannelsGrid = document.getElementById('fpx-channels-grid');
+        const proceedBtn = document.getElementById('proceed-payment-btn');
+        const cancelBtn = document.getElementById('cancel-payment-btn');
+        let selectedChannel = null;
+
+        // Generate random payment details
+        function generatePaymentDetails() {
+            const amount = (Math.random() * 1000 + 100).toFixed(2);
+            const ref = 'REF-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+            document.getElementById('payment-amount').textContent = parseFloat(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('payment-reference').textContent = ref;
+        }
+
+        // Render FPX Channels
+        function renderFPXChannels() {
+            if (!fpxChannelsGrid) return;
+            
+            fpxChannelsGrid.innerHTML = fpxChannels.map(channel => `
+                <div class="fpx-channel-card ${channel.status === 'active' ? 'active' : 'inactive'}" 
+                     data-channel-id="${channel.id}" 
+                     data-channel-code="${channel.code}">
+                    <div class="fpx-channel-logo">${channel.logo}</div>
+                    <div class="fpx-channel-info">
+                        <div class="fpx-channel-name">${channel.name}</div>
+                        <div class="fpx-channel-code">${channel.code}</div>
+                    </div>
+                    <div class="fpx-channel-status">
+                        <span class="status-badge ${channel.status}">${channel.status === 'active' ? '✓' : '✗'}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Add click handlers to channel cards
+            document.querySelectorAll('.fpx-channel-card.active').forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selected class from all cards
+                    document.querySelectorAll('.fpx-channel-card').forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selected class to clicked card
+                    this.classList.add('selected');
+                    
+                    // Store selected channel
+                    selectedChannel = {
+                        id: this.getAttribute('data-channel-id'),
+                        code: this.getAttribute('data-channel-code'),
+                        name: this.querySelector('.fpx-channel-name').textContent
+                    };
+                    
+                    // Enable proceed button
+                    if (proceedBtn) {
+                        proceedBtn.disabled = false;
+                    }
+                });
+            });
+        }
+
+        // Proceed to payment
+        if (proceedBtn) {
+            proceedBtn.addEventListener('click', function() {
+                if (selectedChannel) {
+                    alert(`Redirecting to ${selectedChannel.name} (${selectedChannel.code}) payment gateway...\n\nIn a real application, this would redirect to the bank's payment page.`);
+                    console.log('Selected FPX Channel:', selectedChannel);
+                }
+            });
+        }
+
+        // Cancel payment
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', function() {
+                // Reset selection
+                document.querySelectorAll('.fpx-channel-card').forEach(c => c.classList.remove('selected'));
+                selectedChannel = null;
+                if (proceedBtn) {
+                    proceedBtn.disabled = true;
+                }
+                // Navigate back to dashboard
+                const dashboardNav = document.querySelector('.nav-item[data-page="dashboard"]');
+                if (dashboardNav) {
+                    dashboardNav.click();
+                }
+            });
+        }
+
+        // Initialize when page is shown
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const isHidden = paymentFormPage.classList.contains('hidden');
+                    if (!isHidden) {
+                        generatePaymentDetails();
+                        renderFPXChannels();
+                    }
+                }
+            });
+        });
+
+        observer.observe(paymentFormPage, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        // Initial render if page is already visible
+        if (!paymentFormPage.classList.contains('hidden')) {
+            generatePaymentDetails();
+            renderFPXChannels();
+        }
+    }
+
+    // Initialize payment form when DOM is ready
+    initializePaymentForm();
 });
 
