@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI.Pay - Payment Gateway Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <span class="logo-ai">AI</span><span class="logo-dot">.</span><span class="logo-pay">Pay</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="pool-box payout-pool">
+                <div class="pool-label">Payout Pool</div>
+                <div class="pool-amount">MYR 0.00</div>
+            </div>
+            <div class="pool-box collection-pool">
+                <div class="pool-label">Collection Pool</div>
+                <div class="pool-amount">MYR 0.00</div>
+                <button class="refresh-btn">↻</button>
+            </div>
+            <div class="user-profile">
+                <div class="user-avatar">U</div>
+                <div class="user-name">User</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <div class="nav-item has-submenu" data-submenu="collection">
+                    <span class="nav-icon">📄</span>
+                    <span class="nav-text">Collection</span>
+                    <span class="nav-arrow">›</span>
+                </div>
+                <div class="submenu" id="collection-submenu">
+                    <a href="#" class="nav-item submenu-item" data-page="view-collection">
+                        <span class="nav-text">View Collection</span>
+                    </a>
+                    <a href="#" class="nav-item submenu-item active" data-page="view-payments">
+                        <span class="nav-text">View Payments</span>
+                    </a>
+                </div>
+                <a href="#" class="nav-item" data-page="products">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">Products</span>
+                    <span class="nav-arrow">›</span>
+                </a>
+                <a href="#" class="nav-item" data-page="store-front">
+                    <span class="nav-icon">🛍️</span>
+                    <span class="nav-text">Store Front</span>
+                    <span class="nav-arrow">›</span>
+                </a>
+                <a href="#" class="nav-item" data-page="customers">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Customers</span>
+                </a>
+                <a href="#" class="nav-item" data-page="accounts">
+                    <span class="nav-icon">💼</span>
+                    <span class="nav-text">Accounts</span>
+                    <span class="nav-arrow">›</span>
+                </a>
+                <a href="#" class="nav-item" data-page="pool-fund">
+                    <span class="nav-icon">💰</span>
+                    <span class="nav-text">Pool Fund</span>
+                </a>
+                <a href="#" class="nav-item" data-page="payout">
+                    <span class="nav-icon">✈️</span>
+                    <span class="nav-text">Payout</span>
+                </a>
+                <a href="#" class="nav-item" data-page="settlement">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Settlement</span>
+                </a>
+                <a href="#" class="nav-item" data-page="reports">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Breadcrumbs -->
+            <div class="breadcrumbs">
+                <span class="breadcrumb-item">🏠 Home</span>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-item">Collection</span>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-item active">Payment</span>
+            </div>
+
+            <!-- Page Content (will be dynamically loaded) -->
+            <div id="page-content">
+                <!-- Dashboard Page -->
+                <div class="page" id="dashboard-page">
+                    <h1 class="page-title">Dashboard</h1>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">Total Collection</div>
+                            <div class="stat-value">MYR <span class="amount">125,450.00</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Total Payout</div>
+                            <div class="stat-value">MYR <span class="amount">98,230.00</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Pending</div>
+                            <div class="stat-value">MYR <span class="amount">27,220.00</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Transactions</div>
+                            <div class="stat-value"><span class="amount">1,234</span></div>
+                        </div>
+                    </div>
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3 class="chart-title">Payment Methods (Last 6 Months)</h3>
+                            <div class="chart-placeholder">
+                                <div class="chart-bars">
+                                    <div class="bar" style="height: 60%"></div>
+                                    <div class="bar" style="height: 80%"></div>
+                                    <div class="bar" style="height: 45%"></div>
+                                    <div class="bar" style="height: 90%"></div>
+                                    <div class="bar" style="height: 70%"></div>
+                                    <div class="bar" style="height: 55%"></div>
+                                </div>
+                                <div class="chart-labels">
+                                    <span>Jul</span>
+                                    <span>Aug</span>
+                                    <span>Sep</span>
+                                    <span>Oct</span>
+                                    <span>Nov</span>
+                                    <span>Dec</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-card">
+                            <h3 class="chart-title">Monthly Revenue (Last 6 Months)</h3>
+                            <div class="chart-placeholder">
+                                <div class="chart-line">
+                                    <svg viewBox="0 0 400 200" class="line-chart">
+                                        <polyline points="20,180 80,150 140,120 200,100 260,80 320,60 380,40" 
+                                                  fill="none" stroke="url(#gradient)" stroke-width="3"/>
+                                        <defs>
+                                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                                <stop offset="0%" style="stop-color:#00f5ff;stop-opacity:1" />
+                                                <stop offset="100%" style="stop-color:#7b2cbf;stop-opacity:1" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                <div class="chart-labels">
+                                    <span>Jul 25</span>
+                                    <span>Aug 25</span>
+                                    <span>Sep 25</span>
+                                    <span>Oct 25</span>
+                                    <span>Nov 25</span>
+                                    <span>Dec 25</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View Payments Page -->
+                <div class="page hidden" id="view-payments-page">
+                    <div class="page-header">
+                        <h1 class="page-title">Payment</h1>
+                    </div>
+                    <div class="filters-bar">
+                        <button class="btn btn-primary">Refresh</button>
+                        <select class="filter-select">
+                            <option>50</option>
+                            <option>100</option>
+                            <option>200</option>
+                        </select>
+                        <input type="date" class="filter-input" placeholder="Select Date">
+                        <button class="btn btn-secondary">Clear Date</button>
+                        <select class="filter-select">
+                            <option>Reference Number</option>
+                        </select>
+                        <input type="text" class="filter-input" placeholder="Type to Search">
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>PAYMENT DATE ↕</th>
+                                    <th>REFERENCE NUMBER ↕</th>
+                                    <th>COLLECTION ↕</th>
+                                    <th>INVOICE # ↕</th>
+                                    <th>PAYMENT PROVIDER ↕</th>
+                                    <th>AMOUNT ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2024-01-15</td>
+                                    <td>REF-001234</td>
+                                    <td>Collection A</td>
+                                    <td>INV-2024-001</td>
+                                    <td>Stripe</td>
+                                    <td>MYR 1,250.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-01-14</td>
+                                    <td>REF-001233</td>
+                                    <td>Collection B</td>
+                                    <td>INV-2024-002</td>
+                                    <td>PayPal</td>
+                                    <td>MYR 850.50</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-01-13</td>
+                                    <td>REF-001232</td>
+                                    <td>Collection A</td>
+                                    <td>INV-2024-003</td>
+                                    <td>GCash</td>
+                                    <td>MYR 2,100.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-01-12</td>
+                                    <td>REF-001231</td>
+                                    <td>Collection C</td>
+                                    <td>INV-2024-004</td>
+                                    <td>PayMaya</td>
+                                    <td>MYR 3,450.75</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-01-11</td>
+                                    <td>REF-001230</td>
+                                    <td>Collection B</td>
+                                    <td>INV-2024-005</td>
+                                    <td>Stripe</td>
+                                    <td>MYR 950.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Other Pages (simplified with demo data) -->
+                <div class="page hidden" id="view-collection-page">
+                    <h1 class="page-title">View Collection</h1>
+                    <div class="demo-content">
+                        <p>Collection management interface - Demo data</p>
+                        <div class="demo-cards">
+                            <div class="demo-card">Collection A - MYR 45,230.00</div>
+                            <div class="demo-card">Collection B - MYR 32,150.00</div>
+                            <div class="demo-card">Collection C - MYR 48,070.00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page hidden" id="products-page">
+                    <h1 class="page-title">Products</h1>
+                    <div class="demo-content">
+                        <p>Product management - Demo data</p>
+                        <div class="demo-cards">
+                            <div class="demo-card">Product 1 - Premium Plan</div>
+                            <div class="demo-card">Product 2 - Basic Plan</div>
+                            <div class="demo-card">Product 3 - Enterprise Plan</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page hidden" id="store-front-page">
+                    <h1 class="page-title">Store Front</h1>
+                    <div class="demo-content">
+                        <p>Store front configuration - Demo data</p>
+                    </div>
+                </div>
+
+                <div class="page hidden" id="customers-page">
+                    <h1 class="page-title">Customers</h1>
+                    <div class="demo-content">
+                        <p>Customer management - Demo data</p>
+                        <div class="demo-cards">
+                            <div class="demo-card">Customer 1 - Active</div>
+                            <div class="demo-card">Customer 2 - Active</div>
+                            <div class="demo-card">Customer 3 - Inactive</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page hidden" id="accounts-page">
+                    <h1 class="page-title">Accounts</h1>
+                    <div class="demo-content">
+                        <p>Account management - Demo data</p>
+                    </div>
+                </div>
+
+                <div class="page hidden" id="pool-fund-page">
+                    <h1 class="page-title">Pool Fund</h1>
+                    <div class="demo-content">
+                        <p>Pool fund overview - Demo data</p>
+                        <div class="stat-card">
+                            <div class="stat-label">Total Pool Fund</div>
+                            <div class="stat-value">MYR <span class="amount">250,000.00</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page hidden" id="payout-page">
+                    <h1 class="page-title">Payout</h1>
+                    <div class="demo-content">
+                        <p>Payout management - Demo data</p>
+                    </div>
+                </div>
+
+                <div class="page hidden" id="settlement-page">
+                    <h1 class="page-title">Settlement</h1>
+                    <div class="demo-content">
+                        <p>Settlement records - Demo data</p>
+                    </div>
+                </div>
+
+                <div class="page hidden" id="reports-page">
+                    <h1 class="page-title">Reports</h1>
+                    <div class="demo-content">
+                        <p>Financial reports and analytics - Demo data</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
