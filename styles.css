@@ -863,3 +863,38 @@ body {
     }
 }
 
+/* Status Badges */
+.status-badge {
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.success {
+    background: rgba(0, 245, 255, 0.15);
+    color: var(--accent-neon-cyan);
+    border: 1px solid var(--accent-neon-cyan);
+}
+
+.status-badge.pending {
+    background: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+    border: 1px solid #ffc107;
+}
+
+.status-badge.failed {
+    background: rgba(255, 0, 110, 0.15);
+    color: var(--accent-neon-pink);
+    border: 1px solid var(--accent-neon-pink);
+}
+
+.status-badge.completed {
+    background: rgba(0, 245, 255, 0.15);
+    color: var(--accent-neon-cyan);
+    border: 1px solid var(--accent-neon-cyan);
+}
+

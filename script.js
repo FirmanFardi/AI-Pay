@@ -2,16 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Get all navigation items
     const navItems = document.querySelectorAll('.nav-item[data-page]');
-    const submenuToggle = document.querySelector('.nav-item.has-submenu[data-submenu="collection"]');
-    const collectionSubmenu = document.getElementById('collection-submenu');
-
-    // Handle submenu toggle
-    if (submenuToggle && collectionSubmenu) {
-        submenuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            collectionSubmenu.classList.toggle('active');
-        });
-    }
 
     // Handle navigation clicks
     navItems.forEach(item => {
@@ -49,13 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const breadcrumbs = document.querySelector('.breadcrumbs');
         const pageNames = {
             'dashboard': 'Dashboard',
-            'view-collection': 'Collection > View Collection',
-            'view-payments': 'Collection > Payment',
-            'products': 'Products',
-            'store-front': 'Store Front',
+            'transaction': 'Transaction',
             'customers': 'Customers',
             'accounts': 'Accounts',
-            'pool-fund': 'Pool Fund',
             'payout': 'Payout',
             'settlement': 'Settlement',
             'reports': 'Reports',

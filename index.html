@@ -39,28 +39,9 @@
                     <span class="nav-icon">🏠</span>
                     <span class="nav-text">Dashboard</span>
                 </a>
-                <div class="nav-item has-submenu" data-submenu="collection">
-                    <span class="nav-icon">📄</span>
-                    <span class="nav-text">Collection</span>
-                    <span class="nav-arrow">›</span>
-                </div>
-                <div class="submenu" id="collection-submenu">
-                    <a href="#" class="nav-item submenu-item" data-page="view-collection">
-                        <span class="nav-text">View Collection</span>
-                    </a>
-                    <a href="#" class="nav-item submenu-item active" data-page="view-payments">
-                        <span class="nav-text">View Payments</span>
-                    </a>
-                </div>
-                <a href="#" class="nav-item" data-page="products">
-                    <span class="nav-icon">📦</span>
-                    <span class="nav-text">Products</span>
-                    <span class="nav-arrow">›</span>
-                </a>
-                <a href="#" class="nav-item" data-page="store-front">
-                    <span class="nav-icon">🛍️</span>
-                    <span class="nav-text">Store Front</span>
-                    <span class="nav-arrow">›</span>
+                <a href="#" class="nav-item" data-page="transaction">
+                    <span class="nav-icon">💸</span>
+                    <span class="nav-text">Transaction</span>
                 </a>
                 <a href="#" class="nav-item" data-page="customers">
                     <span class="nav-icon">👥</span>
@@ -70,10 +51,6 @@
                     <span class="nav-icon">💼</span>
                     <span class="nav-text">Accounts</span>
                     <span class="nav-arrow">›</span>
-                </a>
-                <a href="#" class="nav-item" data-page="pool-fund">
-                    <span class="nav-icon">💰</span>
-                    <span class="nav-text">Pool Fund</span>
                 </a>
                 <a href="#" class="nav-item" data-page="payout">
                     <span class="nav-icon">✈️</span>
@@ -178,113 +155,135 @@
                     </div>
                 </div>
 
-                <!-- View Payments Page -->
-                <div class="page hidden" id="view-payments-page">
+                <!-- Transaction Page -->
+                <div class="page hidden" id="transaction-page">
                     <div class="page-header">
-                        <h1 class="page-title">Payment</h1>
+                        <h1 class="page-title">Transaction History</h1>
                     </div>
                     <div class="filters-bar">
                         <button class="btn btn-primary">Refresh</button>
+                        <select class="filter-select">
+                            <option>All Status</option>
+                            <option>Success</option>
+                            <option>Pending</option>
+                            <option>Failed</option>
+                        </select>
                         <select class="filter-select">
                             <option>50</option>
                             <option>100</option>
                             <option>200</option>
                         </select>
-                        <input type="date" class="filter-input" placeholder="Select Date">
-                        <button class="btn btn-secondary">Clear Date</button>
-                        <select class="filter-select">
-                            <option>Reference Number</option>
-                        </select>
-                        <input type="text" class="filter-input" placeholder="Type to Search">
+                        <input type="date" class="filter-input" placeholder="From Date">
+                        <input type="date" class="filter-input" placeholder="To Date">
+                        <input type="text" class="filter-input" placeholder="Search by Reference">
                         <button class="btn btn-primary">Search</button>
                     </div>
                     <div class="table-container">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>PAYMENT DATE ↕</th>
-                                    <th>REFERENCE NUMBER ↕</th>
-                                    <th>COLLECTION ↕</th>
-                                    <th>INVOICE # ↕</th>
-                                    <th>PAYMENT PROVIDER ↕</th>
+                                    <th>DATE ↕</th>
+                                    <th>TRANSACTION ID ↕</th>
+                                    <th>REFERENCE ↕</th>
+                                    <th>PAYMENT METHOD ↕</th>
                                     <th>AMOUNT ↕</th>
+                                    <th>STATUS ↕</th>
+                                    <th>DESCRIPTION ↕</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>2024-01-15</td>
-                                    <td>REF-001234</td>
-                                    <td>Collection A</td>
-                                    <td>INV-2024-001</td>
-                                    <td>Stripe</td>
+                                    <td>2024-12-31 14:23:45</td>
+                                    <td>TXN-20241231-001</td>
+                                    <td>REF-789456</td>
+                                    <td>FPX - Maybank2u</td>
                                     <td>MYR 1,250.00</td>
+                                    <td><span class="status-badge success">Success</span></td>
+                                    <td>Payment for Order #12345</td>
                                 </tr>
                                 <tr>
-                                    <td>2024-01-14</td>
-                                    <td>REF-001233</td>
-                                    <td>Collection B</td>
-                                    <td>INV-2024-002</td>
-                                    <td>PayPal</td>
+                                    <td>2024-12-31 13:15:22</td>
+                                    <td>TXN-20241231-002</td>
+                                    <td>REF-789455</td>
+                                    <td>FPX - CIMB Clicks</td>
                                     <td>MYR 850.50</td>
+                                    <td><span class="status-badge success">Success</span></td>
+                                    <td>Subscription Payment</td>
                                 </tr>
                                 <tr>
-                                    <td>2024-01-13</td>
-                                    <td>REF-001232</td>
-                                    <td>Collection A</td>
-                                    <td>INV-2024-003</td>
-                                    <td>GCash</td>
+                                    <td>2024-12-31 12:08:10</td>
+                                    <td>TXN-20241231-003</td>
+                                    <td>REF-789454</td>
+                                    <td>FPX - Public Bank</td>
                                     <td>MYR 2,100.00</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>Product Purchase</td>
                                 </tr>
                                 <tr>
-                                    <td>2024-01-12</td>
-                                    <td>REF-001231</td>
-                                    <td>Collection C</td>
-                                    <td>INV-2024-004</td>
-                                    <td>PayMaya</td>
+                                    <td>2024-12-31 11:45:33</td>
+                                    <td>TXN-20241231-004</td>
+                                    <td>REF-789453</td>
+                                    <td>FPX - RHB Bank</td>
                                     <td>MYR 3,450.75</td>
+                                    <td><span class="status-badge success">Success</span></td>
+                                    <td>Service Fee Payment</td>
                                 </tr>
                                 <tr>
-                                    <td>2024-01-11</td>
-                                    <td>REF-001230</td>
-                                    <td>Collection B</td>
-                                    <td>INV-2024-005</td>
-                                    <td>Stripe</td>
+                                    <td>2024-12-31 10:30:15</td>
+                                    <td>TXN-20241231-005</td>
+                                    <td>REF-789452</td>
+                                    <td>FPX - Hong Leong Bank</td>
                                     <td>MYR 950.00</td>
+                                    <td><span class="status-badge failed">Failed</span></td>
+                                    <td>Payment Processing Error</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-30 16:22:44</td>
+                                    <td>TXN-20241230-001</td>
+                                    <td>REF-789451</td>
+                                    <td>FPX - AmBank</td>
+                                    <td>MYR 1,800.00</td>
+                                    <td><span class="status-badge success">Success</span></td>
+                                    <td>Monthly Subscription</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-30 15:10:20</td>
+                                    <td>TXN-20241230-002</td>
+                                    <td>REF-789450</td>
+                                    <td>FPX - UOB Bank</td>
+                                    <td>MYR 2,500.00</td>
+                                    <td><span class="status-badge success">Success</span></td>
+                                    <td>Premium Plan Upgrade</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-30 14:05:55</td>
+                                    <td>TXN-20241230-003</td>
+                                    <td>REF-789449</td>
+                                    <td>FPX - OCBC Bank</td>
+                                    <td>MYR 675.25</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>Partial Payment</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-30 13:20:30</td>
+                                    <td>TXN-20241230-004</td>
+                                    <td>REF-789448</td>
+                                    <td>FPX - HSBC Bank</td>
+                                    <td>MYR 1,100.00</td>
+                                    <td><span class="status-badge success">Success</span></td>
+                                    <td>One-time Payment</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-30 12:15:12</td>
+                                    <td>TXN-20241230-005</td>
+                                    <td>REF-789447</td>
+                                    <td>FPX - Standard Chartered</td>
+                                    <td>MYR 3,200.00</td>
+                                    <td><span class="status-badge success">Success</span></td>
+                                    <td>Annual Subscription</td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-
-                <!-- Other Pages (simplified with demo data) -->
-                <div class="page hidden" id="view-collection-page">
-                    <h1 class="page-title">View Collection</h1>
-                    <div class="demo-content">
-                        <p>Collection management interface - Demo data</p>
-                        <div class="demo-cards">
-                            <div class="demo-card">Collection A - MYR 45,230.00</div>
-                            <div class="demo-card">Collection B - MYR 32,150.00</div>
-                            <div class="demo-card">Collection C - MYR 48,070.00</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="page hidden" id="products-page">
-                    <h1 class="page-title">Products</h1>
-                    <div class="demo-content">
-                        <p>Product management - Demo data</p>
-                        <div class="demo-cards">
-                            <div class="demo-card">Product 1 - Premium Plan</div>
-                            <div class="demo-card">Product 2 - Basic Plan</div>
-                            <div class="demo-card">Product 3 - Enterprise Plan</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="page hidden" id="store-front-page">
-                    <h1 class="page-title">Store Front</h1>
-                    <div class="demo-content">
-                        <p>Store front configuration - Demo data</p>
                     </div>
                 </div>
 
@@ -307,35 +306,299 @@
                     </div>
                 </div>
 
-                <div class="page hidden" id="pool-fund-page">
-                    <h1 class="page-title">Pool Fund</h1>
-                    <div class="demo-content">
-                        <p>Pool fund overview - Demo data</p>
-                        <div class="stat-card">
-                            <div class="stat-label">Total Pool Fund</div>
-                            <div class="stat-value">MYR <span class="amount">250,000.00</span></div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="page hidden" id="payout-page">
                     <h1 class="page-title">Payout</h1>
-                    <div class="demo-content">
-                        <p>Payout management - Demo data</p>
+                    <div class="filters-bar">
+                        <button class="btn btn-primary">Refresh</button>
+                        <select class="filter-select">
+                            <option>All Status</option>
+                            <option>Completed</option>
+                            <option>Pending</option>
+                            <option>Failed</option>
+                        </select>
+                        <input type="date" class="filter-input" placeholder="From Date">
+                        <input type="date" class="filter-input" placeholder="To Date">
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>PAYOUT DATE ↕</th>
+                                    <th>PAYOUT ID ↕</th>
+                                    <th>BENEFICIARY ↕</th>
+                                    <th>BANK ACCOUNT ↕</th>
+                                    <th>AMOUNT ↕</th>
+                                    <th>STATUS ↕</th>
+                                    <th>REFERENCE ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2024-12-31 10:00:00</td>
+                                    <td>PO-20241231-001</td>
+                                    <td>John Doe</td>
+                                    <td>Maybank ****1234</td>
+                                    <td>MYR 5,000.00</td>
+                                    <td><span class="status-badge success">Completed</span></td>
+                                    <td>REF-PAYOUT-001</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-31 09:30:00</td>
+                                    <td>PO-20241231-002</td>
+                                    <td>Jane Smith</td>
+                                    <td>CIMB ****5678</td>
+                                    <td>MYR 3,250.00</td>
+                                    <td><span class="status-badge success">Completed</span></td>
+                                    <td>REF-PAYOUT-002</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-31 08:15:00</td>
+                                    <td>PO-20241231-003</td>
+                                    <td>Robert Lee</td>
+                                    <td>Public Bank ****9012</td>
+                                    <td>MYR 7,800.00</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>REF-PAYOUT-003</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-30 16:45:00</td>
+                                    <td>PO-20241230-001</td>
+                                    <td>Sarah Tan</td>
+                                    <td>RHB Bank ****3456</td>
+                                    <td>MYR 2,100.00</td>
+                                    <td><span class="status-badge success">Completed</span></td>
+                                    <td>REF-PAYOUT-004</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-30 15:20:00</td>
+                                    <td>PO-20241230-002</td>
+                                    <td>Michael Wong</td>
+                                    <td>Hong Leong ****7890</td>
+                                    <td>MYR 4,500.00</td>
+                                    <td><span class="status-badge failed">Failed</span></td>
+                                    <td>REF-PAYOUT-005</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-30 14:00:00</td>
+                                    <td>PO-20241230-003</td>
+                                    <td>Lisa Chen</td>
+                                    <td>AmBank ****2345</td>
+                                    <td>MYR 6,750.00</td>
+                                    <td><span class="status-badge success">Completed</span></td>
+                                    <td>REF-PAYOUT-006</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
                 <div class="page hidden" id="settlement-page">
                     <h1 class="page-title">Settlement</h1>
-                    <div class="demo-content">
-                        <p>Settlement records - Demo data</p>
+                    <div class="filters-bar">
+                        <button class="btn btn-primary">Refresh</button>
+                        <select class="filter-select">
+                            <option>All Status</option>
+                            <option>Settled</option>
+                            <option>Pending</option>
+                            <option>Processing</option>
+                        </select>
+                        <input type="date" class="filter-input" placeholder="From Date">
+                        <input type="date" class="filter-input" placeholder="To Date">
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>SETTLEMENT DATE ↕</th>
+                                    <th>SETTLEMENT ID ↕</th>
+                                    <th>PERIOD ↕</th>
+                                    <th>TOTAL AMOUNT ↕</th>
+                                    <th>TRANSACTIONS ↕</th>
+                                    <th>FEES ↕</th>
+                                    <th>NET AMOUNT ↕</th>
+                                    <th>STATUS ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2024-12-31</td>
+                                    <td>STL-20241231-001</td>
+                                    <td>2024-12-24 to 2024-12-30</td>
+                                    <td>MYR 125,450.00</td>
+                                    <td>234</td>
+                                    <td>MYR 3,763.50</td>
+                                    <td>MYR 121,686.50</td>
+                                    <td><span class="status-badge success">Settled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-24</td>
+                                    <td>STL-20241224-001</td>
+                                    <td>2024-12-17 to 2024-12-23</td>
+                                    <td>MYR 98,230.00</td>
+                                    <td>187</td>
+                                    <td>MYR 2,946.90</td>
+                                    <td>MYR 95,283.10</td>
+                                    <td><span class="status-badge success">Settled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-17</td>
+                                    <td>STL-20241217-001</td>
+                                    <td>2024-12-10 to 2024-12-16</td>
+                                    <td>MYR 87,500.00</td>
+                                    <td>156</td>
+                                    <td>MYR 2,625.00</td>
+                                    <td>MYR 84,875.00</td>
+                                    <td><span class="status-badge success">Settled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-10</td>
+                                    <td>STL-20241210-001</td>
+                                    <td>2024-12-03 to 2024-12-09</td>
+                                    <td>MYR 112,300.00</td>
+                                    <td>201</td>
+                                    <td>MYR 3,369.00</td>
+                                    <td>MYR 108,931.00</td>
+                                    <td><span class="status-badge success">Settled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-03</td>
+                                    <td>STL-20241203-001</td>
+                                    <td>2024-11-26 to 2024-12-02</td>
+                                    <td>MYR 95,800.00</td>
+                                    <td>178</td>
+                                    <td>MYR 2,874.00</td>
+                                    <td>MYR 92,926.00</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2024-11-26</td>
+                                    <td>STL-20241126-001</td>
+                                    <td>2024-11-19 to 2024-11-25</td>
+                                    <td>MYR 76,450.00</td>
+                                    <td>142</td>
+                                    <td>MYR 2,293.50</td>
+                                    <td>MYR 74,156.50</td>
+                                    <td><span class="status-badge success">Settled</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
                 <div class="page hidden" id="reports-page">
                     <h1 class="page-title">Reports</h1>
-                    <div class="demo-content">
-                        <p>Financial reports and analytics - Demo data</p>
+                    <div class="stats-grid" style="margin-bottom: 2rem;">
+                        <div class="stat-card">
+                            <div class="stat-label">Total Revenue</div>
+                            <div class="stat-value">MYR <span class="amount">1,245,680.00</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Total Transactions</div>
+                            <div class="stat-value"><span class="amount">8,234</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Average Transaction</div>
+                            <div class="stat-value">MYR <span class="amount">151.25</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Success Rate</div>
+                            <div class="stat-value"><span class="amount">94.5%</span></div>
+                        </div>
+                    </div>
+                    <div class="filters-bar">
+                        <select class="filter-select">
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                            <option>Last 90 Days</option>
+                            <option>This Year</option>
+                            <option>Custom Range</option>
+                        </select>
+                        <input type="date" class="filter-input" placeholder="From Date">
+                        <input type="date" class="filter-input" placeholder="To Date">
+                        <button class="btn btn-primary">Generate Report</button>
+                        <button class="btn btn-secondary">Export CSV</button>
+                    </div>
+                    <div class="table-container" style="margin-top: 2rem;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>DATE ↕</th>
+                                    <th>TRANSACTIONS ↕</th>
+                                    <th>SUCCESSFUL ↕</th>
+                                    <th>FAILED ↕</th>
+                                    <th>TOTAL AMOUNT ↕</th>
+                                    <th>FEES ↕</th>
+                                    <th>NET AMOUNT ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2024-12-31</td>
+                                    <td>145</td>
+                                    <td>138</td>
+                                    <td>7</td>
+                                    <td>MYR 18,450.00</td>
+                                    <td>MYR 553.50</td>
+                                    <td>MYR 17,896.50</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-30</td>
+                                    <td>132</td>
+                                    <td>126</td>
+                                    <td>6</td>
+                                    <td>MYR 16,800.00</td>
+                                    <td>MYR 504.00</td>
+                                    <td>MYR 16,296.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-29</td>
+                                    <td>158</td>
+                                    <td>152</td>
+                                    <td>6</td>
+                                    <td>MYR 22,100.00</td>
+                                    <td>MYR 663.00</td>
+                                    <td>MYR 21,437.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-28</td>
+                                    <td>124</td>
+                                    <td>118</td>
+                                    <td>6</td>
+                                    <td>MYR 15,600.00</td>
+                                    <td>MYR 468.00</td>
+                                    <td>MYR 15,132.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-27</td>
+                                    <td>167</td>
+                                    <td>159</td>
+                                    <td>8</td>
+                                    <td>MYR 19,850.00</td>
+                                    <td>MYR 595.50</td>
+                                    <td>MYR 19,254.50</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-26</td>
+                                    <td>142</td>
+                                    <td>135</td>
+                                    <td>7</td>
+                                    <td>MYR 17,200.00</td>
+                                    <td>MYR 516.00</td>
+                                    <td>MYR 16,684.00</td>
+                                </tr>
+                                <tr>
+                                    <td>2024-12-25</td>
+                                    <td>98</td>
+                                    <td>93</td>
+                                    <td>5</td>
+                                    <td>MYR 12,400.00</td>
+                                    <td>MYR 372.00</td>
+                                    <td>MYR 12,028.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
