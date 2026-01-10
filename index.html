@@ -72,13 +72,15 @@
                     <span class="nav-icon">📊</span>
                     <span class="nav-text">Reports</span>
                 </a>
-                <a href="#" class="nav-item" data-page="payment-form">
+                <a href="payment-form.html" class="nav-item" target="_blank">
                     <span class="nav-icon">💳</span>
                     <span class="nav-text">Payment Form</span>
+                    <span class="nav-arrow">↗</span>
                 </a>
-                <a href="#" class="nav-item" data-page="onboarding">
+                <a href="onboarding.html" class="nav-item" target="_blank">
                     <span class="nav-icon">🚀</span>
                     <span class="nav-text">Onboarding</span>
+                    <span class="nav-arrow">↗</span>
                 </a>
             </nav>
         </aside>
@@ -746,52 +748,13 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </main>
+    </div>
 
-                <!-- Payment Form Page -->
-                <div class="page hidden" id="payment-form-page">
-                    <h1 class="page-title">Payment Form</h1>
-                    <div class="payment-form-container">
-                        <div class="payment-form-card">
-                            <div class="payment-header">
-                                <h2>Make a Payment</h2>
-                                <p class="payment-subtitle">Select your preferred FPX payment channel</p>
-                            </div>
-                            
-                            <div class="payment-details">
-                                <div class="payment-detail-item">
-                                    <span class="detail-label">Amount</span>
-                                    <span class="detail-value">MYR <span id="payment-amount">0.00</span></span>
-                                </div>
-                                <div class="payment-detail-item">
-                                    <span class="detail-label">Reference</span>
-                                    <span class="detail-value" id="payment-reference">REF-000000</span>
-                                </div>
-                                <div class="payment-detail-item">
-                                    <span class="detail-label">Description</span>
-                                    <span class="detail-value" id="payment-description">Payment Transaction</span>
-                                </div>
-                            </div>
-
-                            <div class="fpx-channels-section">
-                                <h3 class="fpx-title">Select FPX Payment Channel</h3>
-                                <div class="fpx-channels-grid" id="fpx-channels-grid">
-                                    <!-- FPX channels will be populated by JavaScript -->
-                                </div>
-                            </div>
-
-                            <div class="payment-actions">
-                                <button class="btn btn-secondary" id="cancel-payment-btn">Cancel</button>
-                                <button class="btn btn-primary" id="proceed-payment-btn" disabled>Proceed to Payment</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Onboarding Page -->
-                <div class="page hidden" id="onboarding-page">
-                    <h1 class="page-title">Merchant Onboarding</h1>
-                    <div class="onboarding-container">
-                        <div class="onboarding-card">
+    <script src="script.js"></script>
+</body>
+</html>
                             <!-- Progress Steps -->
                             <div class="onboarding-progress">
                                 <div class="progress-step active" data-step="1">

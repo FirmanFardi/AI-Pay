@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayNex - Secure Payment</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Payment Form Standalone Styles */
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(123, 44, 191, 0.1) 0%, transparent 70%);
+            animation: rotate 25s linear infinite reverse;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .payment-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .payment-header-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .payment-logo {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00f5ff, #7b2cbf, #ff006e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(0, 245, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .payment-tagline {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0.8;
+        }
+
+        .payment-main-card {
+            background: rgba(21, 21, 32, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                        0 0 40px rgba(0, 245, 255, 0.1),
+                        inset 0 0 40px rgba(123, 44, 191, 0.05);
+            animation: fadeInUp 0.8s ease 0.2s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #00f5ff, #7b2cbf, #ff006e, #00f5ff);
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .payment-amount-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(123, 44, 191, 0.1));
+            border-radius: 16px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+        }
+
+        .amount-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .amount-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00f5ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        .amount-currency {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .payment-details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .payment-detail-card {
+            background: rgba(17, 17, 24, 0.6);
+            border: 1px solid rgba(0, 245, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .payment-detail-card:hover {
+            border-color: rgba(0, 245, 255, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.2);
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .fpx-section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .fpx-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00f5ff, transparent);
+        }
+
+        .fpx-channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .fpx-channel-card {
+            background: rgba(17, 17, 24, 0.8);
+            border: 2px solid rgba(0, 245, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fpx-channel-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .fpx-channel-card:hover {
+            border-color: #00f5ff;
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 245, 255, 0.3),
+                        0 0 30px rgba(0, 245, 255, 0.2);
+        }
+
+        .fpx-channel-card:hover::before {
+            opacity: 1;
+        }
+
+        .fpx-channel-card.selected {
+            border-color: #00f5ff;
+            background: rgba(0, 245, 255, 0.15);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.4),
+                        inset 0 0 30px rgba(0, 245, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .fpx-channel-card.selected::before {
+            opacity: 1;
+        }
+
+        .fpx-channel-logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .fpx-channel-card:hover .fpx-channel-logo {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .fpx-channel-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .fpx-channel-code {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 245, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .btn-payment {
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            min-width: 200px;
+        }
+
+        .btn-payment::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-payment:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-payment-primary {
+            background: linear-gradient(135deg, #7b2cbf, #ff006e);
+            color: var(--text-primary);
+            box-shadow: 0 10px 30px rgba(123, 44, 191, 0.4);
+        }
+
+        .btn-payment-primary:hover {
+            box-shadow: 0 15px 40px rgba(123, 44, 191, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-payment-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-payment-secondary {
+            background: transparent;
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            color: var(--text-primary);
+        }
+
+        .btn-payment-secondary:hover {
+            border-color: #00f5ff;
+            background: rgba(0, 245, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 245, 255, 0.1);
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .security-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .payment-main-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .payment-logo {
+                font-size: 2rem;
+            }
+
+            .amount-value {
+                font-size: 2.5rem;
+            }
+
+            .payment-details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fpx-channels-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .payment-actions {
+                flex-direction: column;
+            }
+
+            .btn-payment {
+                width: 100%;
+            }
+
+            .security-badges {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-wrapper">
+        <!-- Header Section -->
+        <div class="payment-header-section">
+            <div class="payment-logo">PayNex</div>
+            <div class="payment-tagline">Secure Payment Gateway</div>
+            <div class="payment-subtitle">Fast • Secure • Reliable</div>
+        </div>
+
+        <!-- Main Payment Card -->
+        <div class="payment-main-card">
+            <!-- Amount Section -->
+            <div class="payment-amount-section">
+                <div class="amount-label">Payment Amount</div>
+                <div class="amount-value" id="payment-amount-display">0.00</div>
+                <div class="amount-currency">MYR</div>
+            </div>
+
+            <!-- Payment Details -->
+            <div class="payment-details-grid">
+                <div class="payment-detail-card">
+                    <div class="detail-label">Reference</div>
+                    <div class="detail-value" id="payment-reference-display">REF-000000</div>
+                </div>
+                <div class="payment-detail-card">
+                    <div class="detail-label">Transaction ID</div>
+                    <div class="detail-value" id="transaction-id-display">TXN-000000</div>
+                </div>
+                <div class="payment-detail-card">
+                    <div class="detail-label">Status</div>
+                    <div class="detail-value" style="color: #00f5ff;">Pending</div>
+                </div>
+            </div>
+
+            <!-- FPX Channels Section -->
+            <div class="fpx-section-title">Select Your Payment Method</div>
+            <div class="fpx-channels-grid" id="fpx-channels-grid">
+                <!-- FPX channels will be populated by JavaScript -->
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="payment-actions">
+                <button class="btn-payment btn-payment-secondary" id="cancel-payment-btn">
+                    Cancel
+                </button>
+                <button class="btn-payment btn-payment-primary" id="proceed-payment-btn" disabled>
+                    Proceed to Payment
+                </button>
+            </div>
+
+            <!-- Security Badges -->
+            <div class="security-badges">
+                <div class="security-badge">
+                    <span class="security-icon">🔒</span>
+                    <span>256-bit SSL Encryption</span>
+                </div>
+                <div class="security-badge">
+                    <span class="security-icon">✓</span>
+                    <span>PCI DSS Compliant</span>
+                </div>
+                <div class="security-badge">
+                    <span class="security-icon">🛡️</span>
+                    <span>Secure Payment</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // FPX Payment Channels Data
+        const fpxChannels = [
+            { id: 'fpx-mb2u', name: 'Maybank2u', code: 'MB2U', logo: '🏦', status: 'active' },
+            { id: 'fpx-cimb', name: 'CIMB Clicks', code: 'CIMB', logo: '🏦', status: 'active' },
+            { id: 'fpx-pbb', name: 'Public Bank', code: 'PBB', logo: '🏦', status: 'active' },
+            { id: 'fpx-rhb', name: 'RHB Bank', code: 'RHB', logo: '🏦', status: 'active' },
+            { id: 'fpx-hlb', name: 'Hong Leong Bank', code: 'HLB', logo: '🏦', status: 'active' },
+            { id: 'fpx-amb', name: 'AmBank', code: 'AMB', logo: '🏦', status: 'active' },
+            { id: 'fpx-uob', name: 'UOB Bank', code: 'UOB', logo: '🏦', status: 'active' },
+            { id: 'fpx-ocbc', name: 'OCBC Bank', code: 'OCBC', logo: '🏦', status: 'active' },
+            { id: 'fpx-hsbc', name: 'HSBC Bank', code: 'HSBC', logo: '🏦', status: 'active' },
+            { id: 'fpx-standard', name: 'Standard Chartered', code: 'SCB', logo: '🏦', status: 'active' },
+            { id: 'fpx-affin', name: 'Affin Bank', code: 'ABB', logo: '🏦', status: 'active' },
+            { id: 'fpx-alliance', name: 'Alliance Bank', code: 'ABMB', logo: '🏦', status: 'active' },
+            { id: 'fpx-bimb', name: 'Bank Islam', code: 'BIMB', logo: '🏦', status: 'active' },
+            { id: 'fpx-bsn', name: 'Bank Simpanan Nasional', code: 'BSN', logo: '🏦', status: 'active' },
+            { id: 'fpx-bkrm', name: 'Bank Rakyat', code: 'BKRM', logo: '🏦', status: 'active' }
+        ];
+
+        // Generate random payment details
+        function generatePaymentDetails() {
+            const amount = (Math.random() * 1000 + 100).toFixed(2);
+            const ref = 'REF-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+            const txnId = 'TXN-' + Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
+            
+            document.getElementById('payment-amount-display').textContent = parseFloat(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('payment-reference-display').textContent = ref;
+            document.getElementById('transaction-id-display').textContent = txnId;
+        }
+
+        // Render FPX Channels
+        function renderFPXChannels() {
+            const fpxChannelsGrid = document.getElementById('fpx-channels-grid');
+            if (!fpxChannelsGrid) return;
+            
+            fpxChannelsGrid.innerHTML = fpxChannels.map(channel => `
+                <div class="fpx-channel-card ${channel.status === 'active' ? 'active' : 'inactive'}" 
+                     data-channel-id="${channel.id}" 
+                     data-channel-code="${channel.code}">
+                    <div class="fpx-channel-logo">${channel.logo}</div>
+                    <div class="fpx-channel-name">${channel.name}</div>
+                    <div class="fpx-channel-code">${channel.code}</div>
+                </div>
+            `).join('');
+
+            // Add click handlers
+            document.querySelectorAll('.fpx-channel-card.active').forEach(card => {
+                card.addEventListener('click', function() {
+                    // Remove selected class from all cards
+                    document.querySelectorAll('.fpx-channel-card').forEach(c => c.classList.remove('selected'));
+                    
+                    // Add selected class to clicked card
+                    this.classList.add('selected');
+                    
+                    // Store selected channel
+                    selectedChannel = {
+                        id: this.getAttribute('data-channel-id'),
+                        code: this.getAttribute('data-channel-code'),
+                        name: this.querySelector('.fpx-channel-name').textContent
+                    };
+                    
+                    // Enable proceed button
+                    const proceedBtn = document.getElementById('proceed-payment-btn');
+                    if (proceedBtn) {
+                        proceedBtn.disabled = false;
+                    }
+                });
+            });
+        }
+
+        let selectedChannel = null;
+
+        // Proceed to payment
+        const proceedBtn = document.getElementById('proceed-payment-btn');
+        if (proceedBtn) {
+            proceedBtn.addEventListener('click', function() {
+                if (selectedChannel) {
+                    // Add loading state
+                    this.textContent = 'Processing...';
+                    this.disabled = true;
+                    
+                    setTimeout(() => {
+                        alert(`Redirecting to ${selectedChannel.name} (${selectedChannel.code}) payment gateway...\n\nIn a real application, this would redirect to the bank's payment page.`);
+                        this.textContent = 'Proceed to Payment';
+                        this.disabled = false;
+                    }, 1500);
+                }
+            });
+        }
+
+        // Cancel payment
+        const cancelBtn = document.getElementById('cancel-payment-btn');
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to cancel this payment?')) {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            generatePaymentDetails();
+            renderFPXChannels();
+        });
+    </script>
+</body>
+</html>
+
