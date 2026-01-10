@@ -44,7 +44,7 @@
         <aside class="sidebar">
             <nav class="nav-menu">
                 <a href="#" class="nav-item active" data-page="dashboard">
-                    <span class="nav-icon">🏠</span>
+                    <span class="nav-icon">📊</span>
                     <span class="nav-text">Dashboard</span>
                 </a>
                 <a href="#" class="nav-item" data-page="transaction">
@@ -56,16 +56,15 @@
                     <span class="nav-text">Customers</span>
                 </a>
                 <a href="#" class="nav-item" data-page="accounts">
-                    <span class="nav-icon">💼</span>
+                    <span class="nav-icon">🏦</span>
                     <span class="nav-text">Accounts</span>
-                    <span class="nav-arrow">›</span>
                 </a>
                 <a href="#" class="nav-item" data-page="payout">
-                    <span class="nav-icon">✈️</span>
+                    <span class="nav-icon">💰</span>
                     <span class="nav-text">Payout</span>
                 </a>
                 <a href="#" class="nav-item" data-page="settlement">
-                    <span class="nav-icon">📋</span>
+                    <span class="nav-icon">💵</span>
                     <span class="nav-text">Settlement</span>
                 </a>
                 <a href="#" class="nav-item" data-page="reports">
@@ -87,663 +86,324 @@
 
         <!-- Main Content Area -->
         <main class="main-content">
-            <!-- Breadcrumbs -->
-            <div class="breadcrumbs">
-                <span class="breadcrumb-item">🏠 Home</span>
-                <span class="breadcrumb-separator">›</span>
-                <span class="breadcrumb-item">Collection</span>
-                <span class="breadcrumb-separator">›</span>
-                <span class="breadcrumb-item active">Payment</span>
-            </div>
-
-            <!-- Page Content (will be dynamically loaded) -->
-            <div id="page-content">
+            <div class="content-wrapper">
                 <!-- Dashboard Page -->
-                <div class="page" id="dashboard-page">
+                <div class="page active" id="dashboard-page">
                     <h1 class="page-title">Dashboard</h1>
+                    
+                    <!-- Stats Cards -->
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-label">Total Collection</div>
-                            <div class="stat-value">MYR <span class="amount">125,450.00</span></div>
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Total Revenue</div>
+                                <div class="stat-value">MYR 1,234,567.89</div>
+                                <div class="stat-change positive">+12.5% from last month</div>
+                            </div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-label">Total Payout</div>
-                            <div class="stat-value">MYR <span class="amount">98,230.00</span></div>
+                            <div class="stat-icon">💸</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Total Transactions</div>
+                                <div class="stat-value">12,345</div>
+                                <div class="stat-change positive">+8.2% from last month</div>
+                            </div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-label">Pending</div>
-                            <div class="stat-value">MYR <span class="amount">27,220.00</span></div>
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Active Customers</div>
+                                <div class="stat-value">8,901</div>
+                                <div class="stat-change positive">+5.7% from last month</div>
+                            </div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-label">Transactions</div>
-                            <div class="stat-value"><span class="amount">1,234</span></div>
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Success Rate</div>
+                                <div class="stat-value">98.5%</div>
+                                <div class="stat-change positive">+0.3% from last month</div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Charts Section -->
                     <div class="charts-grid">
                         <div class="chart-card">
-                            <h3 class="chart-title">Payment Methods (Last 6 Months)</h3>
+                            <h2 class="chart-title">Revenue Trend</h2>
                             <div class="chart-placeholder">
                                 <div class="chart-bars">
-                                    <div class="bar" style="height: 60%"></div>
-                                    <div class="bar" style="height: 80%"></div>
-                                    <div class="bar" style="height: 45%"></div>
-                                    <div class="bar" style="height: 90%"></div>
-                                    <div class="bar" style="height: 70%"></div>
-                                    <div class="bar" style="height: 55%"></div>
-                                </div>
-                                <div class="chart-labels">
-                                    <span>Jul</span>
-                                    <span>Aug</span>
-                                    <span>Sep</span>
-                                    <span>Oct</span>
-                                    <span>Nov</span>
-                                    <span>Dec</span>
+                                    <div class="chart-bar" style="height: 60%"></div>
+                                    <div class="chart-bar" style="height: 80%"></div>
+                                    <div class="chart-bar" style="height: 45%"></div>
+                                    <div class="chart-bar" style="height: 90%"></div>
+                                    <div class="chart-bar" style="height: 70%"></div>
+                                    <div class="chart-bar" style="height: 85%"></div>
+                                    <div class="chart-bar" style="height: 95%"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="chart-card">
-                            <h3 class="chart-title">Monthly Revenue (Last 6 Months)</h3>
+                            <h2 class="chart-title">Transaction Volume</h2>
                             <div class="chart-placeholder">
                                 <div class="chart-line">
                                     <svg viewBox="0 0 400 200" class="line-chart">
-                                        <polyline points="20,180 80,150 140,120 200,100 260,80 320,60 380,40" 
-                                                  fill="none" stroke="url(#gradient)" stroke-width="3"/>
-                                        <defs>
-                                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                <stop offset="0%" style="stop-color:#00f5ff;stop-opacity:1" />
-                                                <stop offset="100%" style="stop-color:#7b2cbf;stop-opacity:1" />
-                                            </linearGradient>
-                                        </defs>
+                                        <polyline points="0,180 50,150 100,120 150,100 200,80 250,70 300,60 350,50 400,40" 
+                                                  fill="none" stroke="var(--accent-neon-cyan)" stroke-width="3"/>
                                     </svg>
                                 </div>
-                                <div class="chart-labels">
-                                    <span>Jul 25</span>
-                                    <span>Aug 25</span>
-                                    <span>Sep 25</span>
-                                    <span>Oct 25</span>
-                                    <span>Nov 25</span>
-                                    <span>Dec 25</span>
-                                </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Transactions -->
+                    <div class="recent-transactions">
+                        <h2 class="section-title">Recent Transactions</h2>
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction ID</th>
+                                        <th>Customer</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>TXN-001234</td>
+                                        <td>John Doe</td>
+                                        <td>MYR 1,234.56</td>
+                                        <td><span class="status-badge success">Success</span></td>
+                                        <td>2024-01-15 10:30</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TXN-001235</td>
+                                        <td>Jane Smith</td>
+                                        <td>MYR 2,345.67</td>
+                                        <td><span class="status-badge success">Success</span></td>
+                                        <td>2024-01-15 11:15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TXN-001236</td>
+                                        <td>Bob Johnson</td>
+                                        <td>MYR 567.89</td>
+                                        <td><span class="status-badge pending">Pending</span></td>
+                                        <td>2024-01-15 12:00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
 
-                <!-- Transaction Page -->
+                <!-- Transaction History Page -->
                 <div class="page hidden" id="transaction-page">
-                    <div class="page-header">
-                        <h1 class="page-title">Transaction History</h1>
-                    </div>
-                    <div class="filters-bar">
-                        <button class="btn btn-primary">Refresh</button>
-                        <select class="filter-select">
-                            <option>All Status</option>
-                            <option>Success</option>
-                            <option>Pending</option>
-                            <option>Failed</option>
+                    <h1 class="page-title">Transaction History</h1>
+                    
+                    <!-- Filter Bar -->
+                    <div class="filter-bar">
+                        <input type="text" class="filter-input" id="transaction-search" placeholder="Search transactions...">
+                        <select class="filter-select" id="transaction-status-filter">
+                            <option value="">All Status</option>
+                            <option value="success">Success</option>
+                            <option value="pending">Pending</option>
+                            <option value="failed">Failed</option>
                         </select>
-                        <select class="filter-select">
-                            <option>50</option>
-                            <option>100</option>
-                            <option>200</option>
-                        </select>
-                        <input type="date" class="filter-input" placeholder="From Date">
-                        <input type="date" class="filter-input" placeholder="To Date">
-                        <input type="text" class="filter-input" placeholder="Search by Reference">
-                        <button class="btn btn-primary">Search</button>
+                        <button class="btn btn-primary" id="transaction-export-btn">Export CSV</button>
                     </div>
+
+                    <!-- Transaction Table -->
                     <div class="table-container">
-                        <table class="data-table">
+                        <table class="data-table" id="transaction-table">
                             <thead>
                                 <tr>
-                                    <th>DATE ↕</th>
-                                    <th>TRANSACTION ID ↕</th>
-                                    <th>REFERENCE ↕</th>
-                                    <th>PAYMENT METHOD ↕</th>
-                                    <th>AMOUNT ↕</th>
-                                    <th>STATUS ↕</th>
-                                    <th>DESCRIPTION ↕</th>
+                                    <th>Transaction ID</th>
+                                    <th>Reference</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Payment Method</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2024-12-31 14:23:45</td>
-                                    <td>TXN-20241231-001</td>
-                                    <td>REF-789456</td>
-                                    <td>FPX - Maybank2u</td>
-                                    <td>MYR 1,250.00</td>
-                                    <td><span class="status-badge success">Success</span></td>
-                                    <td>Payment for Order #12345</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-31 13:15:22</td>
-                                    <td>TXN-20241231-002</td>
-                                    <td>REF-789455</td>
-                                    <td>FPX - CIMB Clicks</td>
-                                    <td>MYR 850.50</td>
-                                    <td><span class="status-badge success">Success</span></td>
-                                    <td>Subscription Payment</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-31 12:08:10</td>
-                                    <td>TXN-20241231-003</td>
-                                    <td>REF-789454</td>
-                                    <td>FPX - Public Bank</td>
-                                    <td>MYR 2,100.00</td>
-                                    <td><span class="status-badge pending">Pending</span></td>
-                                    <td>Product Purchase</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-31 11:45:33</td>
-                                    <td>TXN-20241231-004</td>
-                                    <td>REF-789453</td>
-                                    <td>FPX - RHB Bank</td>
-                                    <td>MYR 3,450.75</td>
-                                    <td><span class="status-badge success">Success</span></td>
-                                    <td>Service Fee Payment</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-31 10:30:15</td>
-                                    <td>TXN-20241231-005</td>
-                                    <td>REF-789452</td>
-                                    <td>FPX - Hong Leong Bank</td>
-                                    <td>MYR 950.00</td>
-                                    <td><span class="status-badge failed">Failed</span></td>
-                                    <td>Payment Processing Error</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-30 16:22:44</td>
-                                    <td>TXN-20241230-001</td>
-                                    <td>REF-789451</td>
-                                    <td>FPX - AmBank</td>
-                                    <td>MYR 1,800.00</td>
-                                    <td><span class="status-badge success">Success</span></td>
-                                    <td>Monthly Subscription</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-30 15:10:20</td>
-                                    <td>TXN-20241230-002</td>
-                                    <td>REF-789450</td>
-                                    <td>FPX - UOB Bank</td>
-                                    <td>MYR 2,500.00</td>
-                                    <td><span class="status-badge success">Success</span></td>
-                                    <td>Premium Plan Upgrade</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-30 14:05:55</td>
-                                    <td>TXN-20241230-003</td>
-                                    <td>REF-789449</td>
-                                    <td>FPX - OCBC Bank</td>
-                                    <td>MYR 675.25</td>
-                                    <td><span class="status-badge pending">Pending</span></td>
-                                    <td>Partial Payment</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-30 13:20:30</td>
-                                    <td>TXN-20241230-004</td>
-                                    <td>REF-789448</td>
-                                    <td>FPX - HSBC Bank</td>
-                                    <td>MYR 1,100.00</td>
-                                    <td><span class="status-badge success">Success</span></td>
-                                    <td>One-time Payment</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-30 12:15:12</td>
-                                    <td>TXN-20241230-005</td>
-                                    <td>REF-789447</td>
-                                    <td>FPX - Standard Chartered</td>
-                                    <td>MYR 3,200.00</td>
-                                    <td><span class="status-badge success">Success</span></td>
-                                    <td>Annual Subscription</td>
-                                </tr>
+                            <tbody id="transaction-table-body">
+                                <!-- Transaction rows will be populated by JavaScript -->
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <!-- Customers Page -->
                 <div class="page hidden" id="customers-page">
                     <h1 class="page-title">Customers</h1>
-                    <div class="filters-bar">
-                        <input type="text" class="filter-input" placeholder="Search by name, email, or ID" id="customer-search">
-                        <select class="filter-select" id="customer-status-filter">
-                            <option>All Status</option>
-                            <option>Active</option>
-                            <option>Inactive</option>
-                            <option>Suspended</option>
-                        </select>
-                        <button class="btn btn-primary">Search</button>
-                    </div>
                     <div class="table-container">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>CUSTOMER ID ↕</th>
-                                    <th>NAME ↕</th>
-                                    <th>EMAIL ↕</th>
-                                    <th>PHONE ↕</th>
-                                    <th>REGISTERED ↕</th>
-                                    <th>TOTAL TRANSACTIONS ↕</th>
-                                    <th>STATUS ↕</th>
+                                    <th>Customer ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Total Transactions</th>
+                                    <th>Total Spent</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>CUST-001</td>
                                     <td>John Doe</td>
-                                    <td>john.doe@email.com</td>
-                                    <td>+60 12-345 6789</td>
-                                    <td>2024-01-15</td>
+                                    <td>john@example.com</td>
                                     <td>45</td>
+                                    <td>MYR 12,345.67</td>
                                     <td><span class="status-badge success">Active</span></td>
                                 </tr>
                                 <tr>
                                     <td>CUST-002</td>
                                     <td>Jane Smith</td>
-                                    <td>jane.smith@email.com</td>
-                                    <td>+60 12-345 6790</td>
-                                    <td>2024-02-20</td>
+                                    <td>jane@example.com</td>
                                     <td>32</td>
+                                    <td>MYR 8,901.23</td>
                                     <td><span class="status-badge success">Active</span></td>
                                 </tr>
                                 <tr>
                                     <td>CUST-003</td>
-                                    <td>Robert Lee</td>
-                                    <td>robert.lee@email.com</td>
-                                    <td>+60 12-345 6791</td>
-                                    <td>2024-03-10</td>
+                                    <td>Bob Johnson</td>
+                                    <td>bob@example.com</td>
                                     <td>18</td>
+                                    <td>MYR 5,678.90</td>
                                     <td><span class="status-badge success">Active</span></td>
-                                </tr>
-                                <tr>
-                                    <td>CUST-004</td>
-                                    <td>Sarah Tan</td>
-                                    <td>sarah.tan@email.com</td>
-                                    <td>+60 12-345 6792</td>
-                                    <td>2024-04-05</td>
-                                    <td>67</td>
-                                    <td><span class="status-badge success">Active</span></td>
-                                </tr>
-                                <tr>
-                                    <td>CUST-005</td>
-                                    <td>Michael Wong</td>
-                                    <td>michael.wong@email.com</td>
-                                    <td>+60 12-345 6793</td>
-                                    <td>2024-05-12</td>
-                                    <td>12</td>
-                                    <td><span class="status-badge pending">Inactive</span></td>
-                                </tr>
-                                <tr>
-                                    <td>CUST-006</td>
-                                    <td>Lisa Chen</td>
-                                    <td>lisa.chen@email.com</td>
-                                    <td>+60 12-345 6794</td>
-                                    <td>2024-06-18</td>
-                                    <td>89</td>
-                                    <td><span class="status-badge success">Active</span></td>
-                                </tr>
-                                <tr>
-                                    <td>CUST-007</td>
-                                    <td>David Lim</td>
-                                    <td>david.lim@email.com</td>
-                                    <td>+60 12-345 6795</td>
-                                    <td>2024-07-22</td>
-                                    <td>5</td>
-                                    <td><span class="status-badge failed">Suspended</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <!-- Accounts Page -->
                 <div class="page hidden" id="accounts-page">
                     <h1 class="page-title">Accounts</h1>
-                    <div class="stats-grid" style="margin-bottom: 2rem;">
-                        <div class="stat-card">
-                            <div class="stat-label">Total Accounts</div>
-                            <div class="stat-value"><span class="amount">3</span></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Active Accounts</div>
-                            <div class="stat-value"><span class="amount">2</span></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Pending Verification</div>
-                            <div class="stat-value"><span class="amount">1</span></div>
-                        </div>
-                    </div>
                     <div class="table-container">
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>ACCOUNT NAME ↕</th>
-                                    <th>ACCOUNT TYPE ↕</th>
-                                    <th>BANK NAME ↕</th>
-                                    <th>ACCOUNT NUMBER ↕</th>
-                                    <th>STATUS ↕</th>
-                                    <th>CREATED ↕</th>
+                                    <th>Account ID</th>
+                                    <th>Account Name</th>
+                                    <th>Balance</th>
+                                    <th>Status</th>
+                                    <th>Last Activity</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Main Business Account</td>
-                                    <td>Current Account</td>
-                                    <td>Maybank</td>
-                                    <td>****1234</td>
+                                    <td>ACC-001</td>
+                                    <td>Main Account</td>
+                                    <td>MYR 123,456.78</td>
                                     <td><span class="status-badge success">Active</span></td>
-                                    <td>2024-01-10</td>
+                                    <td>2024-01-15 10:30</td>
                                 </tr>
                                 <tr>
-                                    <td>Secondary Account</td>
-                                    <td>Savings Account</td>
-                                    <td>CIMB Bank</td>
-                                    <td>****5678</td>
-                                    <td><span class="status-badge success">Active</span></td>
-                                    <td>2024-03-15</td>
-                                </tr>
-                                <tr>
+                                    <td>ACC-002</td>
                                     <td>Reserve Account</td>
-                                    <td>Current Account</td>
-                                    <td>Public Bank</td>
-                                    <td>****9012</td>
-                                    <td><span class="status-badge pending">Pending</span></td>
-                                    <td>2024-12-20</td>
+                                    <td>MYR 45,678.90</td>
+                                    <td><span class="status-badge success">Active</span></td>
+                                    <td>2024-01-14 15:20</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <!-- Payout Page -->
                 <div class="page hidden" id="payout-page">
-                    <h1 class="page-title">Payout</h1>
-                    <div class="filters-bar">
-                        <button class="btn btn-primary">Refresh</button>
-                        <select class="filter-select">
-                            <option>All Status</option>
-                            <option>Completed</option>
-                            <option>Pending</option>
-                            <option>Failed</option>
+                    <h1 class="page-title">Payout History</h1>
+                    
+                    <!-- Filter Bar -->
+                    <div class="filter-bar">
+                        <input type="text" class="filter-input" id="payout-search" placeholder="Search payouts...">
+                        <select class="filter-select" id="payout-status-filter">
+                            <option value="">All Status</option>
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
                         </select>
-                        <input type="date" class="filter-input" placeholder="From Date">
-                        <input type="date" class="filter-input" placeholder="To Date">
-                        <button class="btn btn-primary">Search</button>
                     </div>
+
                     <div class="table-container">
-                        <table class="data-table">
+                        <table class="data-table" id="payout-table">
                             <thead>
                                 <tr>
-                                    <th>PAYOUT DATE ↕</th>
-                                    <th>PAYOUT ID ↕</th>
-                                    <th>BENEFICIARY ↕</th>
-                                    <th>BANK ACCOUNT ↕</th>
-                                    <th>AMOUNT ↕</th>
-                                    <th>STATUS ↕</th>
-                                    <th>REFERENCE ↕</th>
+                                    <th>Payout ID</th>
+                                    <th>Amount</th>
+                                    <th>Bank Account</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2024-12-31 10:00:00</td>
-                                    <td>PO-20241231-001</td>
-                                    <td>John Doe</td>
-                                    <td>Maybank ****1234</td>
-                                    <td>MYR 5,000.00</td>
-                                    <td><span class="status-badge success">Completed</span></td>
-                                    <td>REF-PAYOUT-001</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-31 09:30:00</td>
-                                    <td>PO-20241231-002</td>
-                                    <td>Jane Smith</td>
-                                    <td>CIMB ****5678</td>
-                                    <td>MYR 3,250.00</td>
-                                    <td><span class="status-badge success">Completed</span></td>
-                                    <td>REF-PAYOUT-002</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-31 08:15:00</td>
-                                    <td>PO-20241231-003</td>
-                                    <td>Robert Lee</td>
-                                    <td>Public Bank ****9012</td>
-                                    <td>MYR 7,800.00</td>
-                                    <td><span class="status-badge pending">Pending</span></td>
-                                    <td>REF-PAYOUT-003</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-30 16:45:00</td>
-                                    <td>PO-20241230-001</td>
-                                    <td>Sarah Tan</td>
-                                    <td>RHB Bank ****3456</td>
-                                    <td>MYR 2,100.00</td>
-                                    <td><span class="status-badge success">Completed</span></td>
-                                    <td>REF-PAYOUT-004</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-30 15:20:00</td>
-                                    <td>PO-20241230-002</td>
-                                    <td>Michael Wong</td>
-                                    <td>Hong Leong ****7890</td>
-                                    <td>MYR 4,500.00</td>
-                                    <td><span class="status-badge failed">Failed</span></td>
-                                    <td>REF-PAYOUT-005</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-30 14:00:00</td>
-                                    <td>PO-20241230-003</td>
-                                    <td>Lisa Chen</td>
-                                    <td>AmBank ****2345</td>
-                                    <td>MYR 6,750.00</td>
-                                    <td><span class="status-badge success">Completed</span></td>
-                                    <td>REF-PAYOUT-006</td>
-                                </tr>
+                            <tbody id="payout-table-body">
+                                <!-- Payout rows will be populated by JavaScript -->
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <!-- Settlement Page -->
                 <div class="page hidden" id="settlement-page">
-                    <h1 class="page-title">Settlement</h1>
-                    <div class="filters-bar">
-                        <button class="btn btn-primary">Refresh</button>
-                        <select class="filter-select">
-                            <option>All Status</option>
-                            <option>Settled</option>
-                            <option>Pending</option>
-                            <option>Processing</option>
+                    <h1 class="page-title">Settlement History</h1>
+                    
+                    <!-- Filter Bar -->
+                    <div class="filter-bar">
+                        <input type="text" class="filter-input" id="settlement-search" placeholder="Search settlements...">
+                        <select class="filter-select" id="settlement-status-filter">
+                            <option value="">All Status</option>
+                            <option value="settled">Settled</option>
+                            <option value="pending">Pending</option>
                         </select>
-                        <input type="date" class="filter-input" placeholder="From Date">
-                        <input type="date" class="filter-input" placeholder="To Date">
-                        <button class="btn btn-primary">Search</button>
                     </div>
+
                     <div class="table-container">
-                        <table class="data-table">
+                        <table class="data-table" id="settlement-table">
                             <thead>
                                 <tr>
-                                    <th>SETTLEMENT DATE ↕</th>
-                                    <th>SETTLEMENT ID ↕</th>
-                                    <th>PERIOD ↕</th>
-                                    <th>TOTAL AMOUNT ↕</th>
-                                    <th>TRANSACTIONS ↕</th>
-                                    <th>FEES ↕</th>
-                                    <th>NET AMOUNT ↕</th>
-                                    <th>STATUS ↕</th>
+                                    <th>Settlement ID</th>
+                                    <th>Period</th>
+                                    <th>Amount</th>
+                                    <th>Transactions</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2024-12-31</td>
-                                    <td>STL-20241231-001</td>
-                                    <td>2024-12-24 to 2024-12-30</td>
-                                    <td>MYR 125,450.00</td>
-                                    <td>234</td>
-                                    <td>MYR 3,763.50</td>
-                                    <td>MYR 121,686.50</td>
-                                    <td><span class="status-badge success">Settled</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-24</td>
-                                    <td>STL-20241224-001</td>
-                                    <td>2024-12-17 to 2024-12-23</td>
-                                    <td>MYR 98,230.00</td>
-                                    <td>187</td>
-                                    <td>MYR 2,946.90</td>
-                                    <td>MYR 95,283.10</td>
-                                    <td><span class="status-badge success">Settled</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-17</td>
-                                    <td>STL-20241217-001</td>
-                                    <td>2024-12-10 to 2024-12-16</td>
-                                    <td>MYR 87,500.00</td>
-                                    <td>156</td>
-                                    <td>MYR 2,625.00</td>
-                                    <td>MYR 84,875.00</td>
-                                    <td><span class="status-badge success">Settled</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-10</td>
-                                    <td>STL-20241210-001</td>
-                                    <td>2024-12-03 to 2024-12-09</td>
-                                    <td>MYR 112,300.00</td>
-                                    <td>201</td>
-                                    <td>MYR 3,369.00</td>
-                                    <td>MYR 108,931.00</td>
-                                    <td><span class="status-badge success">Settled</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-03</td>
-                                    <td>STL-20241203-001</td>
-                                    <td>2024-11-26 to 2024-12-02</td>
-                                    <td>MYR 95,800.00</td>
-                                    <td>178</td>
-                                    <td>MYR 2,874.00</td>
-                                    <td>MYR 92,926.00</td>
-                                    <td><span class="status-badge pending">Pending</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2024-11-26</td>
-                                    <td>STL-20241126-001</td>
-                                    <td>2024-11-19 to 2024-11-25</td>
-                                    <td>MYR 76,450.00</td>
-                                    <td>142</td>
-                                    <td>MYR 2,293.50</td>
-                                    <td>MYR 74,156.50</td>
-                                    <td><span class="status-badge success">Settled</span></td>
-                                </tr>
+                            <tbody id="settlement-table-body">
+                                <!-- Settlement rows will be populated by JavaScript -->
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <!-- Reports Page -->
                 <div class="page hidden" id="reports-page">
                     <h1 class="page-title">Reports</h1>
-                    <div class="stats-grid" style="margin-bottom: 2rem;">
-                        <div class="stat-card">
-                            <div class="stat-label">Total Revenue</div>
-                            <div class="stat-value">MYR <span class="amount">1,245,680.00</span></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Total Transactions</div>
-                            <div class="stat-value"><span class="amount">8,234</span></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Average Transaction</div>
-                            <div class="stat-value">MYR <span class="amount">151.25</span></div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Success Rate</div>
-                            <div class="stat-value"><span class="amount">94.5%</span></div>
-                        </div>
+                    
+                    <div class="filter-bar">
+                        <input type="date" class="filter-input" id="report-start-date">
+                        <input type="date" class="filter-input" id="report-end-date">
+                        <button class="btn btn-primary" id="generate-report-btn">Generate Report</button>
+                        <button class="btn btn-secondary" id="export-report-btn">Export CSV</button>
                     </div>
-                    <div class="filters-bar">
-                        <select class="filter-select">
-                            <option>Last 7 Days</option>
-                            <option>Last 30 Days</option>
-                            <option>Last 90 Days</option>
-                            <option>This Year</option>
-                            <option>Custom Range</option>
-                        </select>
-                        <input type="date" class="filter-input" placeholder="From Date">
-                        <input type="date" class="filter-input" placeholder="To Date">
-                        <button class="btn btn-primary">Generate Report</button>
-                        <button class="btn btn-secondary">Export CSV</button>
-                    </div>
-                    <div class="table-container" style="margin-top: 2rem;">
-                        <table class="data-table">
+
+                    <div class="table-container">
+                        <table class="data-table" id="reports-table">
                             <thead>
                                 <tr>
-                                    <th>DATE ↕</th>
-                                    <th>TRANSACTIONS ↕</th>
-                                    <th>SUCCESSFUL ↕</th>
-                                    <th>FAILED ↕</th>
-                                    <th>TOTAL AMOUNT ↕</th>
-                                    <th>FEES ↕</th>
-                                    <th>NET AMOUNT ↕</th>
+                                    <th>Date</th>
+                                    <th>Transaction Count</th>
+                                    <th>Total Amount</th>
+                                    <th>Success Rate</th>
+                                    <th>Average Transaction</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2024-12-31</td>
-                                    <td>145</td>
-                                    <td>138</td>
-                                    <td>7</td>
-                                    <td>MYR 18,450.00</td>
-                                    <td>MYR 553.50</td>
-                                    <td>MYR 17,896.50</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-30</td>
-                                    <td>132</td>
-                                    <td>126</td>
-                                    <td>6</td>
-                                    <td>MYR 16,800.00</td>
-                                    <td>MYR 504.00</td>
-                                    <td>MYR 16,296.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-29</td>
-                                    <td>158</td>
-                                    <td>152</td>
-                                    <td>6</td>
-                                    <td>MYR 22,100.00</td>
-                                    <td>MYR 663.00</td>
-                                    <td>MYR 21,437.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-28</td>
-                                    <td>124</td>
-                                    <td>118</td>
-                                    <td>6</td>
-                                    <td>MYR 15,600.00</td>
-                                    <td>MYR 468.00</td>
-                                    <td>MYR 15,132.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-27</td>
-                                    <td>167</td>
-                                    <td>159</td>
-                                    <td>8</td>
-                                    <td>MYR 19,850.00</td>
-                                    <td>MYR 595.50</td>
-                                    <td>MYR 19,254.50</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-26</td>
-                                    <td>142</td>
-                                    <td>135</td>
-                                    <td>7</td>
-                                    <td>MYR 17,200.00</td>
-                                    <td>MYR 516.00</td>
-                                    <td>MYR 16,684.00</td>
-                                </tr>
-                                <tr>
-                                    <td>2024-12-25</td>
-                                    <td>98</td>
-                                    <td>93</td>
-                                    <td>5</td>
-                                    <td>MYR 12,400.00</td>
-                                    <td>MYR 372.00</td>
-                                    <td>MYR 12,028.00</td>
-                                </tr>
+                            <tbody id="reports-table-body">
+                                <!-- Report rows will be populated by JavaScript -->
                             </tbody>
                         </table>
                     </div>
@@ -755,299 +415,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-                            <!-- Progress Steps -->
-                            <div class="onboarding-progress">
-                                <div class="progress-step active" data-step="1">
-                                    <div class="step-number">1</div>
-                                    <div class="step-label">Business Info</div>
-                                </div>
-                                <div class="progress-line"></div>
-                                <div class="progress-step" data-step="2">
-                                    <div class="step-number">2</div>
-                                    <div class="step-label">Bank Details</div>
-                                </div>
-                                <div class="progress-line"></div>
-                                <div class="progress-step" data-step="3">
-                                    <div class="step-number">3</div>
-                                    <div class="step-label">Documents</div>
-                                </div>
-                                <div class="progress-line"></div>
-                                <div class="progress-step" data-step="4">
-                                    <div class="step-number">4</div>
-                                    <div class="step-label">Review</div>
-                                </div>
-                            </div>
-
-                            <!-- Step 1: Business Information -->
-                            <div class="onboarding-step active" id="step-1" style="display: block;">
-                                <h2 class="step-title">Business Information</h2>
-                                <p class="step-subtitle">Please provide your business details</p>
-                                
-                                <div class="form-group">
-                                    <label>Business Name *</label>
-                                    <input type="text" class="form-input" id="business-name" placeholder="Enter business name" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Business Registration Number (SSM/ROC) *</label>
-                                    <input type="text" class="form-input" id="business-reg" placeholder="e.g., 123456-A" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Business Type *</label>
-                                    <select class="form-input" id="business-type" required>
-                                        <option value="">Select business type</option>
-                                        <option value="sole-proprietor">Sole Proprietor</option>
-                                        <option value="partnership">Partnership</option>
-                                        <option value="sdn-bhd">Sdn Bhd</option>
-                                        <option value="bhd">Bhd</option>
-                                        <option value="llp">Limited Liability Partnership (LLP)</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Business Address *</label>
-                                    <textarea class="form-input" id="business-address" rows="3" placeholder="Enter full business address" required></textarea>
-                                </div>
-                                
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label>City *</label>
-                                        <input type="text" class="form-input" id="business-city" placeholder="City" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Postal Code *</label>
-                                        <input type="text" class="form-input" id="business-postal" placeholder="Postal code" required>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>State *</label>
-                                    <select class="form-input" id="business-state" required>
-                                        <option value="">Select state</option>
-                                        <option value="johor">Johor</option>
-                                        <option value="kedah">Kedah</option>
-                                        <option value="kelantan">Kelantan</option>
-                                        <option value="kl">Kuala Lumpur</option>
-                                        <option value="labuan">Labuan</option>
-                                        <option value="melaka">Melaka</option>
-                                        <option value="negeri-sembilan">Negeri Sembilan</option>
-                                        <option value="pahang">Pahang</option>
-                                        <option value="penang">Penang</option>
-                                        <option value="perak">Perak</option>
-                                        <option value="perlis">Perlis</option>
-                                        <option value="putrajaya">Putrajaya</option>
-                                        <option value="sabah">Sabah</option>
-                                        <option value="sarawak">Sarawak</option>
-                                        <option value="selangor">Selangor</option>
-                                        <option value="terengganu">Terengganu</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Contact Email *</label>
-                                    <input type="email" class="form-input" id="contact-email" placeholder="business@email.com" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Contact Phone *</label>
-                                    <input type="tel" class="form-input" id="contact-phone" placeholder="+60 12-345 6789" required>
-                                </div>
-                            </div>
-
-                            <!-- Step 2: Bank Account Details -->
-                            <div class="onboarding-step" id="step-2" style="display: none;">
-                                <h2 class="step-title">Bank Account Information</h2>
-                                <p class="step-subtitle">Where we'll send your payouts</p>
-                                
-                                <div class="form-group">
-                                    <label>Account Holder Name *</label>
-                                    <input type="text" class="form-input" id="account-name" placeholder="Account holder name" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Bank Name *</label>
-                                    <select class="form-input" id="bank-name" required>
-                                        <option value="">Select bank</option>
-                                        <option value="maybank">Maybank</option>
-                                        <option value="cimb">CIMB Bank</option>
-                                        <option value="public">Public Bank</option>
-                                        <option value="rhb">RHB Bank</option>
-                                        <option value="hong-leong">Hong Leong Bank</option>
-                                        <option value="ambank">AmBank</option>
-                                        <option value="uob">UOB Bank</option>
-                                        <option value="ocbc">OCBC Bank</option>
-                                        <option value="hsbc">HSBC Bank</option>
-                                        <option value="standard-chartered">Standard Chartered</option>
-                                        <option value="affin">Affin Bank</option>
-                                        <option value="alliance">Alliance Bank</option>
-                                        <option value="bank-islam">Bank Islam</option>
-                                        <option value="bsn">Bank Simpanan Nasional</option>
-                                        <option value="bank-rakyat">Bank Rakyat</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Account Number *</label>
-                                    <input type="text" class="form-input" id="account-number" placeholder="Enter account number" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Account Type *</label>
-                                    <select class="form-input" id="account-type" required>
-                                        <option value="">Select account type</option>
-                                        <option value="current">Current Account</option>
-                                        <option value="savings">Savings Account</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Bank Statement (Last 3 months) *</label>
-                                    <div class="file-upload">
-                                        <input type="file" class="file-input" id="bank-statement" accept=".pdf,.jpg,.jpeg,.png" required>
-                                        <label for="bank-statement" class="file-label">
-                                            <span class="file-icon">📄</span>
-                                            <span class="file-text">Upload Bank Statement</span>
-                                        </label>
-                                        <span class="file-name" id="bank-statement-name"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Step 3: Documents Upload -->
-                            <div class="onboarding-step" id="step-3" style="display: none;">
-                                <h2 class="step-title">Required Documents</h2>
-                                <p class="step-subtitle">Please upload the following documents for verification</p>
-                                
-                                <div class="form-group">
-                                    <label>Business Registration Certificate (SSM/ROC) *</label>
-                                    <div class="file-upload">
-                                        <input type="file" class="file-input" id="business-cert" accept=".pdf,.jpg,.jpeg,.png" required>
-                                        <label for="business-cert" class="file-label">
-                                            <span class="file-icon">📄</span>
-                                            <span class="file-text">Upload Business Certificate</span>
-                                        </label>
-                                        <span class="file-name" id="business-cert-name"></span>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Identity Card (IC) / Passport (Director/Owner) *</label>
-                                    <div class="file-upload">
-                                        <input type="file" class="file-input" id="ic-passport" accept=".pdf,.jpg,.jpeg,.png" required>
-                                        <label for="ic-passport" class="file-label">
-                                            <span class="file-icon">🆔</span>
-                                            <span class="file-text">Upload IC/Passport</span>
-                                        </label>
-                                        <span class="file-name" id="ic-passport-name"></span>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Proof of Address (Utility Bill / Bank Statement) *</label>
-                                    <div class="file-upload">
-                                        <input type="file" class="file-input" id="proof-address" accept=".pdf,.jpg,.jpeg,.png" required>
-                                        <label for="proof-address" class="file-label">
-                                            <span class="file-icon">🏠</span>
-                                            <span class="file-text">Upload Proof of Address</span>
-                                        </label>
-                                        <span class="file-name" id="proof-address-name"></span>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>Additional Documents (Optional)</label>
-                                    <div class="file-upload">
-                                        <input type="file" class="file-input" id="additional-docs" accept=".pdf,.jpg,.jpeg,.png" multiple>
-                                        <label for="additional-docs" class="file-label">
-                                            <span class="file-icon">📎</span>
-                                            <span class="file-text">Upload Additional Documents</span>
-                                        </label>
-                                        <span class="file-name" id="additional-docs-name"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Step 4: Review and Submit -->
-                            <div class="onboarding-step" id="step-4" style="display: none;">
-                                <h2 class="step-title">Review & Submit</h2>
-                                <p class="step-subtitle">Please review your information before submitting</p>
-                                
-                                <div class="review-section">
-                                    <h3>Business Information</h3>
-                                    <div class="review-item">
-                                        <span class="review-label">Business Name:</span>
-                                        <span class="review-value" id="review-business-name">-</span>
-                                    </div>
-                                    <div class="review-item">
-                                        <span class="review-label">Registration Number:</span>
-                                        <span class="review-value" id="review-business-reg">-</span>
-                                    </div>
-                                    <div class="review-item">
-                                        <span class="review-label">Business Type:</span>
-                                        <span class="review-value" id="review-business-type">-</span>
-                                    </div>
-                                    <div class="review-item">
-                                        <span class="review-label">Contact Email:</span>
-                                        <span class="review-value" id="review-contact-email">-</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="review-section">
-                                    <h3>Bank Account</h3>
-                                    <div class="review-item">
-                                        <span class="review-label">Account Holder:</span>
-                                        <span class="review-value" id="review-account-name">-</span>
-                                    </div>
-                                    <div class="review-item">
-                                        <span class="review-label">Bank Name:</span>
-                                        <span class="review-value" id="review-bank-name">-</span>
-                                    </div>
-                                    <div class="review-item">
-                                        <span class="review-label">Account Number:</span>
-                                        <span class="review-value" id="review-account-number">-</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group" style="margin-top: 2rem;">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" id="terms-accept" required>
-                                        <span>I agree to the <a href="#" style="color: var(--accent-neon-cyan);">Terms & Conditions</a> and <a href="#" style="color: var(--accent-neon-cyan);">Privacy Policy</a> *</span>
-                                    </label>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" id="data-consent" required>
-                                        <span>I consent to the processing of my personal data for verification purposes *</span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Navigation Buttons -->
-                            <div class="onboarding-actions">
-                                <button class="btn btn-secondary" id="onboarding-prev-btn" style="display: none;">Previous</button>
-                                <button class="btn btn-primary" id="onboarding-next-btn">Next</button>
-                                <button class="btn btn-primary" id="onboarding-submit-btn" style="display: none;">Submit Application</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
