@@ -1302,12 +1302,12 @@ body {
 }
 
 .onboarding-step {
-    display: none;
+    display: none !important;
     animation: fadeIn 0.3s ease;
 }
 
 .onboarding-step.active {
-    display: block;
+    display: block !important;
 }
 
 .step-title {

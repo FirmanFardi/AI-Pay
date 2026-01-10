@@ -416,6 +416,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const onboardingPage = document.getElementById('onboarding-page');
         if (!onboardingPage) return;
 
+        // Ensure only step 1 is visible initially
+        document.querySelectorAll('.onboarding-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        const step1 = document.getElementById('step-1');
+        if (step1) step1.classList.add('active');
+
         let currentStep = 1;
         const totalSteps = 4;
         const nextBtn = document.getElementById('onboarding-next-btn');
@@ -592,5 +599,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize onboarding when DOM is ready
     initializeOnboarding();
+    
+    // Also initialize immediately if onboarding page is visible
+    const onboardingPage = document.getElementById('onboarding-page');
+    if (onboardingPage && !onboardingPage.classList.contains('hidden')) {
+        // Force hide all steps except step-1
+        document.querySelectorAll('.onboarding-step').forEach(step => {
+            step.classList.remove('active');
+        });
+        const step1 = document.getElementById('step-1');
+        if (step1) {
+            step1.classList.add('active');
+        }
+    }
 });
 
