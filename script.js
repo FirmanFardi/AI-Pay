@@ -12,6 +12,37 @@
 
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Logo variant toggle (shared UX pattern)
+    // Persists selection in localStorage so the chosen style stays after refresh.
+    (function initLogoSwitcher() {
+        const logo = document.getElementById('paynex-logo');
+        if (!logo) return;
+
+        const variants = ['classic', 'simple', 'minimal', 'futuristic'];
+        const storageKey = 'paynex_logo_variant';
+
+        const setVariant = (v) => {
+            const next = variants.includes(v) ? v : 'classic';
+            logo.setAttribute('data-logo-variant', next);
+            try { localStorage.setItem(storageKey, next); } catch (_) {}
+        };
+
+        const getStored = () => {
+            try { return localStorage.getItem(storageKey); } catch (_) { return null; }
+        };
+
+        // Initial variant
+        setVariant(getStored() || 'classic');
+
+        // Cycle on click
+        logo.addEventListener('click', () => {
+            const current = logo.getAttribute('data-logo-variant') || 'classic';
+            const idx = variants.indexOf(current);
+            const next = variants[(idx + 1) % variants.length];
+            setVariant(next);
+        });
+    })();
+
     // Mobile menu toggle
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const sidebar = document.querySelector('.sidebar');

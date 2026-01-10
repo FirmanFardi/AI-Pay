@@ -479,7 +479,15 @@
     <div class="payment-wrapper">
         <!-- Header Section -->
         <div class="payment-header-section">
-            <div class="payment-logo">PayNex</div>
+            <div class="payment-logo logo-switch" id="paynex-logo-standalone" role="button" tabindex="0" aria-label="PayNex logo. Click to change style.">
+                <span class="logo-variant logo-variant-classic" data-variant="classic" aria-hidden="true">
+                    <span class="logo-pay">Pay</span><span class="logo-nex">Nex</span>
+                </span>
+                <span class="logo-variant logo-variant-simple" data-variant="simple" aria-hidden="true">PayNex</span>
+                <span class="logo-variant logo-variant-minimal" data-variant="minimal" aria-hidden="true"><span class="logo-mark">PN</span></span>
+                <span class="logo-variant logo-variant-futuristic" data-variant="futuristic" aria-hidden="true">PAY<span class="logo-fx">NEX</span></span>
+                <span class="logo-hint" aria-hidden="true">Click to change</span>
+            </div>
             <div class="payment-tagline">Secure Payment Gateway</div>
             <div class="payment-subtitle">Fast • Secure • Reliable</div>
         </div>
@@ -544,6 +552,42 @@
     </div>
 
     <script>
+        // Logo variant toggle (standalone page)
+        (function initLogoSwitcherStandalone() {
+            const logo = document.getElementById('paynex-logo-standalone');
+            if (!logo) return;
+
+            const variants = ['classic', 'simple', 'minimal', 'futuristic'];
+            const storageKey = 'paynex_logo_variant';
+
+            const setVariant = (v) => {
+                const next = variants.includes(v) ? v : 'classic';
+                logo.setAttribute('data-logo-variant', next);
+                try { localStorage.setItem(storageKey, next); } catch (_) {}
+            };
+
+            const getStored = () => {
+                try { return localStorage.getItem(storageKey); } catch (_) { return null; }
+            };
+
+            setVariant(getStored() || 'classic');
+
+            const cycle = () => {
+                const current = logo.getAttribute('data-logo-variant') || 'classic';
+                const idx = variants.indexOf(current);
+                const next = variants[(idx + 1) % variants.length];
+                setVariant(next);
+            };
+
+            logo.addEventListener('click', cycle);
+            logo.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    cycle();
+                }
+            });
+        })();
+
         // FPX Payment Channels Data
         const fpxChannels = [
             { id: 'fpx-mb2u', name: 'Maybank2u', code: 'MB2U', logo: 'MB', status: 'active' },

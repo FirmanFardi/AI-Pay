@@ -106,6 +106,93 @@ body {
     letter-spacing: -0.5px;
 }
 
+/* ============================================
+   PayNex Logo Variants (click-to-cycle)
+   ============================================ */
+.logo-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+    line-height: 1;
+    user-select: none;
+}
+
+.logo-switch:focus-visible {
+    outline: 2px solid rgba(0, 245, 255, 0.6);
+    outline-offset: 6px;
+    border-radius: 10px;
+}
+
+.logo-variant {
+    display: none;
+    align-items: center;
+    gap: 0;
+}
+
+.logo-switch[data-logo-variant="classic"] .logo-variant-classic,
+.logo-switch[data-logo-variant="simple"] .logo-variant-simple,
+.logo-switch[data-logo-variant="minimal"] .logo-variant-minimal,
+.logo-switch[data-logo-variant="futuristic"] .logo-variant-futuristic {
+    display: inline-flex;
+}
+
+.logo-variant-simple {
+    font-weight: 650;
+    letter-spacing: -0.4px;
+}
+
+.logo-variant-minimal .logo-mark {
+    width: 44px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    border-radius: 10px;
+    background: rgba(0, 245, 255, 0.12);
+    border: 1px solid rgba(0, 245, 255, 0.35);
+    box-shadow: 0 0 18px rgba(0, 245, 255, 0.18);
+}
+
+.logo-variant-futuristic {
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(123, 44, 191, 0.45);
+    background: rgba(123, 44, 191, 0.10);
+}
+
+.logo-variant-futuristic .logo-fx {
+    background: linear-gradient(135deg, var(--accent-neon-cyan), var(--accent-neon-purple), var(--accent-neon-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 22px rgba(0, 245, 255, 0.30);
+}
+
+.logo-hint {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    opacity: 0.75;
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    border: 1px dashed rgba(0, 245, 255, 0.25);
+}
+
+.logo-switch:hover .logo-hint {
+    opacity: 1;
+    border-color: rgba(0, 245, 255, 0.45);
+}
+
 .logo-pay {
     background: linear-gradient(135deg, var(--accent-neon-cyan), var(--accent-neon-purple));
     -webkit-background-clip: text;
