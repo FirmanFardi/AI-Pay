@@ -71,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update breadcrumbs
     function updateBreadcrumbs(page) {
         const breadcrumbs = document.querySelector('.breadcrumbs');
+        if (!breadcrumbs) {
+            // Breadcrumbs element doesn't exist, skip update
+            return;
+        }
+        
         const pageNames = {
             'dashboard': 'Dashboard',
             'transaction': 'Transaction',
@@ -95,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 
-    // Initialize with dashboard page
+    // Initialize with dashboard page (only if breadcrumbs exist)
     updateBreadcrumbs('dashboard');
 
     // Search and Filter Functionality
