@@ -1,3 +1,15 @@
+/* ============================================
+   RESPONSIVE JAVASCRIPT STRUCTURE
+   ============================================
+   
+   IMPORTANT FOR DEVELOPERS:
+   - Mobile menu toggle functionality is included
+   - Some features work differently on mobile vs desktop
+   - When adding new features, consider mobile behavior
+   - Test on BOTH mobile and webview after changes
+   
+   ============================================ */
+
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle

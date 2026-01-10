@@ -1,3 +1,21 @@
+/* ============================================
+   RESPONSIVE DESIGN STRUCTURE
+   ============================================
+   
+   IMPORTANT FOR DEVELOPERS:
+   - This project uses MOBILE-FIRST approach with media queries
+   - Desktop/Webview styles: @media (min-width: 769px)
+   - Mobile styles: @media (max-width: 768px)
+   - Small mobile: @media (max-width: 480px)
+   
+   WHEN UPDATING STYLES:
+   - If you change a base style, check if it needs mobile/desktop overrides
+   - Always test BOTH mobile and webview after making changes
+   - Look for corresponding @media queries below
+   - Update both desktop AND mobile versions if needed
+   
+   ============================================ */
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -687,7 +705,19 @@ body {
     box-shadow: 0 0 10px var(--accent-neon-cyan);
 }
 
-/* Responsive Design */
+/* ============================================
+   MOBILE STYLES (768px and below)
+   ============================================
+   IMPORTANT: When updating mobile styles, also check
+   if corresponding desktop styles need updates in the
+   @media (min-width: 769px) section above.
+   
+   Mobile-specific features:
+   - Hamburger menu toggle
+   - Collapsible sidebar
+   - Stacked layouts
+   - Full-width buttons
+   ============================================ */
 @media (max-width: 768px) {
     /* Mobile Menu Toggle */
     .mobile-menu-toggle {
@@ -1191,7 +1221,12 @@ body {
     box-shadow: none;
 }
 
-/* Responsive Payment Form */
+/* ============================================
+   PAYMENT FORM - MOBILE STYLES (768px and below)
+   ============================================
+   Mobile-specific overrides for payment form.
+   Base styles are in "Payment Form Styles" section above.
+   ============================================ */
 @media (max-width: 768px) {
     .payment-form-card {
         padding: 1.5rem;
@@ -1211,7 +1246,12 @@ body {
     }
 }
 
-/* Onboarding Styles */
+/* ============================================
+   ONBOARDING STYLES
+   ============================================
+   Base styles for onboarding wizard.
+   Mobile overrides are in @media (max-width: 768px) below.
+   ============================================ */
 .onboarding-container {
     max-width: 900px;
     margin: 0 auto;
@@ -1485,6 +1525,12 @@ textarea.form-input {
     min-width: 150px;
 }
 
+/* ============================================
+   ONBOARDING - MOBILE STYLES (768px and below)
+   ============================================
+   Mobile-specific overrides for onboarding wizard.
+   Base styles are in "Onboarding Styles" section above.
+   ============================================ */
 @media (max-width: 768px) {
     .onboarding-progress {
         flex-direction: column;
