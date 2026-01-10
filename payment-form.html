@@ -479,14 +479,13 @@
     <div class="payment-wrapper">
         <!-- Header Section -->
         <div class="payment-header-section">
-            <div class="payment-logo logo-switch" id="paynex-logo-standalone" role="button" tabindex="0" aria-label="PayNex logo. Click to change style.">
+            <div class="payment-logo logo-switch" id="paynex-logo-standalone" role="button" tabindex="0" aria-label="PayNex logo. Click to change style." title="Click to change PayNex logo style" data-logo-variant="classic">
                 <span class="logo-variant logo-variant-classic" data-variant="classic" aria-hidden="true">
                     <span class="logo-pay">Pay</span><span class="logo-nex">Nex</span>
                 </span>
-                <span class="logo-variant logo-variant-simple" data-variant="simple" aria-hidden="true">PayNex</span>
-                <span class="logo-variant logo-variant-minimal" data-variant="minimal" aria-hidden="true"><span class="logo-mark">PN</span></span>
-                <span class="logo-variant logo-variant-futuristic" data-variant="futuristic" aria-hidden="true">PAY<span class="logo-fx">NEX</span></span>
-                <span class="logo-hint" aria-hidden="true">Click to change</span>
+                <span class="logo-variant logo-variant-simple" data-variant="simple" aria-hidden="true" hidden>PayNex</span>
+                <span class="logo-variant logo-variant-minimal" data-variant="minimal" aria-hidden="true" hidden><span class="logo-mark">PN</span></span>
+                <span class="logo-variant logo-variant-futuristic" data-variant="futuristic" aria-hidden="true" hidden>PAY<span class="logo-fx">NEX</span></span>
             </div>
             <div class="payment-tagline">Secure Payment Gateway</div>
             <div class="payment-subtitle">Fast • Secure • Reliable</div>
@@ -560,9 +559,17 @@
             const variants = ['classic', 'simple', 'minimal', 'futuristic'];
             const storageKey = 'paynex_logo_variant';
 
+            const applyHidden = (variant) => {
+                logo.querySelectorAll('[data-variant]').forEach((el) => {
+                    const v = el.getAttribute('data-variant');
+                    el.hidden = v !== variant;
+                });
+            };
+
             const setVariant = (v) => {
                 const next = variants.includes(v) ? v : 'classic';
                 logo.setAttribute('data-logo-variant', next);
+                applyHidden(next);
                 try { localStorage.setItem(storageKey, next); } catch (_) {}
             };
 

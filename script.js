@@ -21,9 +21,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const variants = ['classic', 'simple', 'minimal', 'futuristic'];
         const storageKey = 'paynex_logo_variant';
 
+        const applyHidden = (variant) => {
+            logo.querySelectorAll('[data-variant]').forEach((el) => {
+                const v = el.getAttribute('data-variant');
+                if (v === variant) {
+                    el.hidden = false;
+                } else {
+                    el.hidden = true;
+                }
+            });
+        };
+
         const setVariant = (v) => {
             const next = variants.includes(v) ? v : 'classic';
             logo.setAttribute('data-logo-variant', next);
+            applyHidden(next);
             try { localStorage.setItem(storageKey, next); } catch (_) {}
         };
 
