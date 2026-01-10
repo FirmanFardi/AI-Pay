@@ -86,23 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize with dashboard page
     updateBreadcrumbs('dashboard');
 
-    // Refresh button functionality
-    const refreshBtn = document.querySelector('.refresh-btn');
-    if (refreshBtn) {
-        refreshBtn.addEventListener('click', function() {
-            // Add rotation animation
-            this.style.transform = 'rotate(360deg)';
-            this.style.transition = 'transform 0.5s ease';
-            
-            setTimeout(() => {
-                this.style.transform = 'rotate(0deg)';
-            }, 500);
-            
-            // Simulate refresh (in real app, this would fetch new data)
-            console.log('Refreshing data...');
-        });
-    }
-
     // Search and Filter Functionality
     function initializeSearch() {
         // Search functionality for Transaction page

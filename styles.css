@@ -218,6 +218,64 @@ body {
     padding: 0 1rem;
 }
 
+/* Desktop View - Ensure desktop styles are not overridden */
+@media (min-width: 769px) {
+    .sidebar {
+        display: block !important;
+        max-height: none !important;
+        overflow-y: auto !important;
+        width: 260px !important;
+        position: sticky !important;
+        top: 70px !important;
+        height: calc(100vh - 70px) !important;
+        padding: 1.5rem 0 !important;
+        border-right: 1px solid var(--border-color) !important;
+        border-bottom: none !important;
+    }
+
+    .nav-menu {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: none !important;
+        padding: 0 1rem !important;
+    }
+
+    .nav-item {
+        padding: 0.75rem 1rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    .header {
+        flex-direction: row !important;
+        padding: 1rem 2rem !important;
+    }
+
+    .header-left {
+        display: flex !important;
+        align-items: center !important;
+        width: auto !important;
+    }
+
+    .header-right {
+        flex-direction: row !important;
+        width: auto !important;
+        gap: 1.5rem !important;
+    }
+
+    .container {
+        flex-direction: row !important;
+    }
+
+    .pool-box {
+        width: auto !important;
+        padding: 0.75rem 1.25rem !important;
+    }
+
+    .user-profile {
+        width: auto !important;
+    }
+}
+
 .nav-item {
     display: flex;
     align-items: center;
