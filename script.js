@@ -417,8 +417,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Populate Transaction Table
     function populateTransactionTable() {
         const tbody = document.getElementById('transaction-table-body');
-        if (!tbody) return;
+        if (!tbody) {
+            console.error('Transaction table body not found!');
+            return;
+        }
         
+        console.log('Populating transaction table...');
         const transactions = generateTransactionData(50);
         tbody.innerHTML = transactions.map(txn => {
             const statusClass = txn.status.toLowerCase();
@@ -434,12 +438,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 </tr>
             `;
         }).join('');
+        console.log(`Transaction table populated with ${transactions.length} rows`);
     }
     
     // Populate Payout Table
     function populatePayoutTable() {
         const tbody = document.getElementById('payout-table-body');
-        if (!tbody) return;
+        if (!tbody) {
+            console.error('Payout table body not found!');
+            return;
+        }
         
         const payouts = generatePayoutData(30);
         tbody.innerHTML = payouts.map(payout => {
@@ -454,12 +462,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 </tr>
             `;
         }).join('');
+        console.log(`Payout table populated with ${payouts.length} rows`);
     }
     
     // Populate Settlement Table
     function populateSettlementTable() {
         const tbody = document.getElementById('settlement-table-body');
-        if (!tbody) return;
+        if (!tbody) {
+            console.error('Settlement table body not found!');
+            return;
+        }
         
         const settlements = generateSettlementData(20);
         tbody.innerHTML = settlements.map(settlement => {
@@ -475,12 +487,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 </tr>
             `;
         }).join('');
+        console.log(`Settlement table populated with ${settlements.length} rows`);
     }
     
     // Populate Reports Table
     function populateReportsTable() {
         const tbody = document.getElementById('reports-table-body');
-        if (!tbody) return;
+        if (!tbody) {
+            console.error('Reports table body not found!');
+            return;
+        }
         
         const reports = generateReportsData(30);
         tbody.innerHTML = reports.map(report => {
@@ -494,14 +510,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 </tr>
             `;
         }).join('');
+        console.log(`Reports table populated with ${reports.length} rows`);
     }
     
     // Initialize all tables with data
     function initializeTables() {
+        console.log('Initializing tables...');
         populateTransactionTable();
         populatePayoutTable();
         populateSettlementTable();
         populateReportsTable();
+        console.log('Tables initialized!');
     }
     
     // Initialize search on page load
