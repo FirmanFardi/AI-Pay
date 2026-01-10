@@ -101,27 +101,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Search and Filter Functionality
     function initializeSearch() {
         // Search functionality for Transaction page
-        const transactionSearchBtn = document.querySelector('#transaction-page .filters-bar .btn-primary:last-child');
-        const transactionSearchInput = document.querySelector('#transaction-page .filters-bar .filter-input[type="text"]');
+        const transactionSearchInput = document.getElementById('transaction-search');
+        const transactionStatusFilter = document.getElementById('transaction-status-filter');
         
-        if (transactionSearchBtn && transactionSearchInput) {
-            transactionSearchBtn.addEventListener('click', function() {
-                filterTransactionTable();
-            });
-
-            transactionSearchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    filterTransactionTable();
-                }
-            });
-
+        if (transactionSearchInput) {
             transactionSearchInput.addEventListener('input', function() {
                 filterTransactionTable();
             });
         }
 
-        // Status filter for Transaction page
-        const transactionStatusFilter = document.querySelector('#transaction-page .filter-select');
         if (transactionStatusFilter) {
             transactionStatusFilter.addEventListener('change', function() {
                 filterTransactionTable();
@@ -148,98 +136,148 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function filterTransactionTable() {
-        const table = document.querySelector('#transaction-page .data-table tbody');
+        const table = document.getElementById('transaction-table-body');
         if (!table) return;
 
-        const searchInput = document.querySelector('#transaction-page .filters-bar .filter-input[type="text"]');
-        const statusFilter = document.querySelector('#transaction-page .filter-select');
+        const searchInput = document.getElementById('transaction-search');
+        const statusFilter = document.getElementById('transaction-status-filter');
         
         const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
-        const statusFilterValue = statusFilter ? statusFilter.value : 'All Status';
+        const statusFilterValue = statusFilter ? statusFilter.value.toLowerCase() : '';
         
         const rows = table.querySelectorAll('tr');
         
         rows.forEach(row => {
             const text = row.textContent.toLowerCase();
             const statusBadge = row.querySelector('.status-badge');
-            const status = statusBadge ? statusBadge.textContent.trim() : '';
+            const status = statusBadge ? statusBadge.textContent.trim().toLowerCase() : '';
             
             const matchesSearch = !searchTerm || text.includes(searchTerm);
-            const matchesStatus = statusFilterValue === 'All Status' || 
-                (statusFilterValue === 'Success' && status === 'Success') ||
-                (statusFilterValue === 'Pending' && status === 'Pending') ||
-                (statusFilterValue === 'Failed' && status === 'Failed');
+            const matchesStatus = !statusFilterValue || status === statusFilterValue;
             
             row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
         });
     }
 
     function filterPayoutTable() {
-        const table = document.querySelector('#payout-page .data-table tbody');
+        const table = document.getElementById('payout-table-body');
         if (!table) return;
 
-        const statusFilter = document.querySelector('#payout-page .filter-select');
-        const statusFilterValue = statusFilter ? statusFilter.value : 'All Status';
+        const searchInput = document.getElementById('payout-search');
+        const statusFilter = document.getElementById('payout-status-filter');
+        
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+        const statusFilterValue = statusFilter ? statusFilter.value.toLowerCase() : '';
         
         const rows = table.querySelectorAll('tr');
         
         rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
             const statusBadge = row.querySelector('.status-badge');
-            const status = statusBadge ? statusBadge.textContent.trim() : '';
+            const status = statusBadge ? statusBadge.textContent.trim().toLowerCase() : '';
             
-            const matchesStatus = statusFilterValue === 'All Status' || 
-                (statusFilterValue === 'Completed' && status === 'Completed') ||
-                (statusFilterValue === 'Pending' && status === 'Pending') ||
-                (statusFilterValue === 'Failed' && status === 'Failed');
+            const matchesSearch = !searchTerm || text.includes(searchTerm);
+            const matchesStatus = !statusFilterValue || status === statusFilterValue;
             
-            row.style.display = matchesStatus ? '' : 'none';
+            row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+        });
+    }
+    
+    // Add event listeners for payout search
+    const payoutSearchInput = document.getElementById('payout-search');
+    const payoutStatusFilter = document.getElementById('payout-status-filter');
+    
+    if (payoutSearchInput) {
+        payoutSearchInput.addEventListener('input', function() {
+            filterPayoutTable();
+        });
+    }
+    
+    if (payoutStatusFilter) {
+        payoutStatusFilter.addEventListener('change', function() {
+            filterPayoutTable();
         });
     }
 
     function filterSettlementTable() {
-        const table = document.querySelector('#settlement-page .data-table tbody');
+        const table = document.getElementById('settlement-table-body');
         if (!table) return;
 
-        const statusFilter = document.querySelector('#settlement-page .filter-select');
-        const statusFilterValue = statusFilter ? statusFilter.value : 'All Status';
+        const searchInput = document.getElementById('settlement-search');
+        const statusFilter = document.getElementById('settlement-status-filter');
+        
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+        const statusFilterValue = statusFilter ? statusFilter.value.toLowerCase() : '';
         
         const rows = table.querySelectorAll('tr');
         
         rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
             const statusBadge = row.querySelector('.status-badge');
-            const status = statusBadge ? statusBadge.textContent.trim() : '';
+            const status = statusBadge ? statusBadge.textContent.trim().toLowerCase() : '';
             
-            const matchesStatus = statusFilterValue === 'All Status' || 
-                (statusFilterValue === 'Settled' && status === 'Settled') ||
-                (statusFilterValue === 'Pending' && status === 'Pending') ||
-                (statusFilterValue === 'Processing' && status === 'Processing');
+            const matchesSearch = !searchTerm || text.includes(searchTerm);
+            const matchesStatus = !statusFilterValue || status === statusFilterValue;
             
-            row.style.display = matchesStatus ? '' : 'none';
+            row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+        });
+    }
+    
+    // Add event listeners for settlement search
+    const settlementSearchInput = document.getElementById('settlement-search');
+    const settlementStatusFilter = document.getElementById('settlement-status-filter');
+    
+    if (settlementSearchInput) {
+        settlementSearchInput.addEventListener('input', function() {
+            filterSettlementTable();
+        });
+    }
+    
+    if (settlementStatusFilter) {
+        settlementStatusFilter.addEventListener('change', function() {
+            filterSettlementTable();
         });
     }
 
     // CSV Export Functionality
     function exportToCSV(tableId, filename) {
-        const table = document.querySelector(`#${tableId} .data-table`);
+        const page = document.getElementById(tableId);
+        if (!page) return;
+        
+        const table = page.querySelector('.data-table');
         if (!table) return;
 
         let csv = [];
-        const rows = table.querySelectorAll('tr');
-
-        rows.forEach(row => {
-            if (row.style.display === 'none') return; // Skip hidden rows
-            
-            const cols = row.querySelectorAll('th, td');
-            const rowData = [];
-            
-            cols.forEach(col => {
-                // Remove status badge HTML and get text only
-                const text = col.textContent.replace(/\s+/g, ' ').trim();
-                rowData.push(`"${text}"`);
+        
+        // Add header row
+        const headerRow = table.querySelector('thead tr');
+        if (headerRow) {
+            const headers = [];
+            headerRow.querySelectorAll('th').forEach(th => {
+                headers.push(`"${th.textContent.trim()}"`);
             });
-            
-            csv.push(rowData.join(','));
-        });
+            csv.push(headers.join(','));
+        }
+
+        // Add data rows
+        const tbody = table.querySelector('tbody');
+        if (tbody) {
+            const rows = tbody.querySelectorAll('tr');
+            rows.forEach(row => {
+                if (row.style.display === 'none') return; // Skip hidden rows
+                
+                const cols = row.querySelectorAll('td');
+                const rowData = [];
+                
+                cols.forEach(col => {
+                    // Remove status badge HTML and get text only
+                    const text = col.textContent.replace(/\s+/g, ' ').trim();
+                    rowData.push(`"${text}"`);
+                });
+                
+                csv.push(rowData.join(','));
+            });
+        }
 
         const csvContent = csv.join('\n');
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -254,14 +292,236 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.removeChild(link);
     }
 
+    // ============================================
+    // DUMMY DATA GENERATION
+    // ============================================
+    
+    // Generate Transaction Data
+    function generateTransactionData(count = 50) {
+        const customers = ['John Doe', 'Jane Smith', 'Bob Johnson', 'Alice Williams', 'Charlie Brown', 'Diana Prince', 'Ethan Hunt', 'Fiona Chen', 'George Wilson', 'Hannah Lee'];
+        const paymentMethods = ['FPX - Maybank2u', 'FPX - CIMB Clicks', 'FPX - Public Bank', 'FPX - RHB Bank', 'FPX - Hong Leong', 'FPX - AmBank', 'FPX - UOB', 'FPX - OCBC'];
+        const statuses = ['Success', 'Pending', 'Failed'];
+        const transactions = [];
+        
+        for (let i = 0; i < count; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - Math.floor(Math.random() * 90));
+            const hours = Math.floor(Math.random() * 24);
+            const minutes = Math.floor(Math.random() * 60);
+            const dateStr = date.toISOString().split('T')[0];
+            const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+            
+            transactions.push({
+                id: `TXN-${String(i + 1).padStart(6, '0')}`,
+                reference: `REF-${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`,
+                customer: customers[Math.floor(Math.random() * customers.length)],
+                amount: (Math.random() * 5000 + 50).toFixed(2),
+                method: paymentMethods[Math.floor(Math.random() * paymentMethods.length)],
+                status: statuses[Math.floor(Math.random() * statuses.length)],
+                date: `${dateStr} ${timeStr}`
+            });
+        }
+        
+        return transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    
+    // Generate Payout Data
+    function generatePayoutData(count = 30) {
+        const banks = ['Maybank', 'CIMB Bank', 'Public Bank', 'RHB Bank', 'Hong Leong Bank', 'AmBank'];
+        const statuses = ['Completed', 'Pending', 'Processing'];
+        const payouts = [];
+        
+        for (let i = 0; i < count; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - Math.floor(Math.random() * 60));
+            const hours = Math.floor(Math.random() * 24);
+            const minutes = Math.floor(Math.random() * 60);
+            const dateStr = date.toISOString().split('T')[0];
+            const timeStr = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+            
+            const bank = banks[Math.floor(Math.random() * banks.length)];
+            const accountNum = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            
+            payouts.push({
+                id: `PO-${dateStr.replace(/-/g, '')}-${String(i + 1).padStart(3, '0')}`,
+                amount: (Math.random() * 10000 + 500).toFixed(2),
+                bankAccount: `${bank} ****${accountNum}`,
+                status: statuses[Math.floor(Math.random() * statuses.length)],
+                date: `${dateStr} ${timeStr}`
+            });
+        }
+        
+        return payouts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    
+    // Generate Settlement Data
+    function generateSettlementData(count = 20) {
+        const statuses = ['Settled', 'Pending'];
+        const settlements = [];
+        
+        for (let i = 0; i < count; i++) {
+            const endDate = new Date();
+            endDate.setDate(endDate.getDate() - (i * 7));
+            const startDate = new Date(endDate);
+            startDate.setDate(startDate.getDate() - 6);
+            
+            const endDateStr = endDate.toISOString().split('T')[0];
+            const startDateStr = startDate.toISOString().split('T')[0];
+            
+            const transactionCount = Math.floor(Math.random() * 200 + 50);
+            const totalAmount = transactionCount * (Math.random() * 500 + 100);
+            const fees = totalAmount * 0.03;
+            const netAmount = totalAmount - fees;
+            
+            settlements.push({
+                id: `STL-${endDateStr.replace(/-/g, '')}-${String(i + 1).padStart(3, '0')}`,
+                period: `${startDateStr} to ${endDateStr}`,
+                amount: totalAmount.toFixed(2),
+                transactions: transactionCount,
+                status: i < 2 ? 'Pending' : 'Settled',
+                date: endDateStr
+            });
+        }
+        
+        return settlements.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    
+    // Generate Reports Data
+    function generateReportsData(count = 30) {
+        const reports = [];
+        
+        for (let i = 0; i < count; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            const dateStr = date.toISOString().split('T')[0];
+            
+            const transactionCount = Math.floor(Math.random() * 200 + 50);
+            const successCount = Math.floor(transactionCount * (0.85 + Math.random() * 0.1));
+            const failedCount = transactionCount - successCount;
+            const totalAmount = transactionCount * (Math.random() * 500 + 100);
+            const successRate = ((successCount / transactionCount) * 100).toFixed(1);
+            const avgTransaction = (totalAmount / transactionCount).toFixed(2);
+            
+            reports.push({
+                date: dateStr,
+                transactionCount: transactionCount,
+                totalAmount: totalAmount.toFixed(2),
+                successRate: successRate,
+                avgTransaction: avgTransaction
+            });
+        }
+        
+        return reports.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    
+    // Populate Transaction Table
+    function populateTransactionTable() {
+        const tbody = document.getElementById('transaction-table-body');
+        if (!tbody) return;
+        
+        const transactions = generateTransactionData(50);
+        tbody.innerHTML = transactions.map(txn => {
+            const statusClass = txn.status.toLowerCase();
+            return `
+                <tr>
+                    <td>${txn.id}</td>
+                    <td>${txn.reference}</td>
+                    <td>${txn.customer}</td>
+                    <td>MYR ${parseFloat(txn.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td>${txn.method}</td>
+                    <td><span class="status-badge ${statusClass}">${txn.status}</span></td>
+                    <td>${txn.date}</td>
+                </tr>
+            `;
+        }).join('');
+    }
+    
+    // Populate Payout Table
+    function populatePayoutTable() {
+        const tbody = document.getElementById('payout-table-body');
+        if (!tbody) return;
+        
+        const payouts = generatePayoutData(30);
+        tbody.innerHTML = payouts.map(payout => {
+            const statusClass = payout.status.toLowerCase();
+            return `
+                <tr>
+                    <td>${payout.id}</td>
+                    <td>MYR ${parseFloat(payout.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td>${payout.bankAccount}</td>
+                    <td><span class="status-badge ${statusClass}">${payout.status}</span></td>
+                    <td>${payout.date}</td>
+                </tr>
+            `;
+        }).join('');
+    }
+    
+    // Populate Settlement Table
+    function populateSettlementTable() {
+        const tbody = document.getElementById('settlement-table-body');
+        if (!tbody) return;
+        
+        const settlements = generateSettlementData(20);
+        tbody.innerHTML = settlements.map(settlement => {
+            const statusClass = settlement.status.toLowerCase();
+            return `
+                <tr>
+                    <td>${settlement.id}</td>
+                    <td>${settlement.period}</td>
+                    <td>MYR ${parseFloat(settlement.amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td>${settlement.transactions}</td>
+                    <td><span class="status-badge ${statusClass}">${settlement.status}</span></td>
+                    <td>${settlement.date}</td>
+                </tr>
+            `;
+        }).join('');
+    }
+    
+    // Populate Reports Table
+    function populateReportsTable() {
+        const tbody = document.getElementById('reports-table-body');
+        if (!tbody) return;
+        
+        const reports = generateReportsData(30);
+        tbody.innerHTML = reports.map(report => {
+            return `
+                <tr>
+                    <td>${report.date}</td>
+                    <td>${report.transactionCount}</td>
+                    <td>MYR ${parseFloat(report.totalAmount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td>${report.successRate}%</td>
+                    <td>MYR ${parseFloat(report.avgTransaction).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                </tr>
+            `;
+        }).join('');
+    }
+    
+    // Initialize all tables with data
+    function initializeTables() {
+        populateTransactionTable();
+        populatePayoutTable();
+        populateSettlementTable();
+        populateReportsTable();
+    }
+    
     // Initialize search on page load
     initializeSearch();
+    
+    // Initialize tables with dummy data
+    initializeTables();
 
-    // Add CSV export to Reports page
-    const exportBtn = document.querySelector('#reports-page .btn-secondary');
-    if (exportBtn) {
-        exportBtn.addEventListener('click', function() {
+    // Add CSV export buttons
+    const exportReportBtn = document.querySelector('#reports-page .btn-secondary');
+    if (exportReportBtn) {
+        exportReportBtn.addEventListener('click', function() {
             exportToCSV('reports-page', `reports-${new Date().toISOString().split('T')[0]}.csv`);
+        });
+    }
+    
+    const exportTransactionBtn = document.getElementById('transaction-export-btn');
+    if (exportTransactionBtn) {
+        exportTransactionBtn.addEventListener('click', function() {
+            exportToCSV('transaction-page', `transactions-${new Date().toISOString().split('T')[0]}.csv`);
         });
     }
 
