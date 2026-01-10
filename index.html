@@ -16,8 +16,13 @@
         3. Test hamburger menu on mobile
         4. Ensure tables scroll horizontally on mobile if needed
     -->
-    <!-- Cache-buster: helps GitHub Pages + browsers pick up latest CSS after deploy -->
-    <link rel="stylesheet" href="styles.css?v=20260110">
+    <!--
+        PRIORITY (DEPLOY / GITHUB PAGES):
+        GitHub Pages + browsers can cache static assets aggressively.
+        If you change `styles.css` or `script.js` and users still see old behavior,
+        bump the `v=` numbers below to force-refresh (cache-buster).
+    -->
+    <link rel="stylesheet" href="styles.css?v=20260110.2">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -414,7 +419,6 @@
         </main>
     </div>
 
-    <!-- Cache-buster: helps GitHub Pages + browsers pick up latest JS after deploy -->
-    <script src="script.js?v=20260110"></script>
+    <script src="script.js?v=20260110.2"></script>
 </body>
 </html>
