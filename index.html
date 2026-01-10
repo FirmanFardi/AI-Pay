@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI.Pay - Payment Gateway Portal</title>
+    <title>PayNex - Payment Gateway Portal</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Top Header -->
     <header class="header">
         <div class="header-left">
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div class="logo">
-                <span class="logo-ai">AI</span><span class="logo-dot">.</span><span class="logo-pay">Pay</span>
+                <span class="logo-pay">Pay</span><span class="logo-nex">Nex</span>
             </div>
         </div>
         <div class="header-right">
             <div class="pool-box payout-pool">
                 <div class="pool-label">Payout Pool</div>
-                <div class="pool-amount">MYR 0.00</div>
+                <div class="pool-amount" id="payout-pool-amount">MYR 98,230.00</div>
             </div>
             <div class="pool-box collection-pool">
                 <div class="pool-label">Collection Pool</div>
-                <div class="pool-amount">MYR 0.00</div>
+                <div class="pool-amount" id="collection-pool-amount">MYR 125,450.00</div>
                 <button class="refresh-btn">↻</button>
             </div>
             <div class="user-profile">
@@ -67,6 +72,10 @@
                 <a href="#" class="nav-item" data-page="payment-form">
                     <span class="nav-icon">💳</span>
                     <span class="nav-text">Payment Form</span>
+                </a>
+                <a href="#" class="nav-item" data-page="onboarding">
+                    <span class="nav-icon">🚀</span>
+                    <span class="nav-text">Onboarding</span>
                 </a>
             </nav>
         </aside>
@@ -289,20 +298,153 @@
 
                 <div class="page hidden" id="customers-page">
                     <h1 class="page-title">Customers</h1>
-                    <div class="demo-content">
-                        <p>Customer management - Demo data</p>
-                        <div class="demo-cards">
-                            <div class="demo-card">Customer 1 - Active</div>
-                            <div class="demo-card">Customer 2 - Active</div>
-                            <div class="demo-card">Customer 3 - Inactive</div>
-                        </div>
+                    <div class="filters-bar">
+                        <input type="text" class="filter-input" placeholder="Search by name, email, or ID" id="customer-search">
+                        <select class="filter-select" id="customer-status-filter">
+                            <option>All Status</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                            <option>Suspended</option>
+                        </select>
+                        <button class="btn btn-primary">Search</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>CUSTOMER ID ↕</th>
+                                    <th>NAME ↕</th>
+                                    <th>EMAIL ↕</th>
+                                    <th>PHONE ↕</th>
+                                    <th>REGISTERED ↕</th>
+                                    <th>TOTAL TRANSACTIONS ↕</th>
+                                    <th>STATUS ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>CUST-001</td>
+                                    <td>John Doe</td>
+                                    <td>john.doe@email.com</td>
+                                    <td>+60 12-345 6789</td>
+                                    <td>2024-01-15</td>
+                                    <td>45</td>
+                                    <td><span class="status-badge success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CUST-002</td>
+                                    <td>Jane Smith</td>
+                                    <td>jane.smith@email.com</td>
+                                    <td>+60 12-345 6790</td>
+                                    <td>2024-02-20</td>
+                                    <td>32</td>
+                                    <td><span class="status-badge success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CUST-003</td>
+                                    <td>Robert Lee</td>
+                                    <td>robert.lee@email.com</td>
+                                    <td>+60 12-345 6791</td>
+                                    <td>2024-03-10</td>
+                                    <td>18</td>
+                                    <td><span class="status-badge success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CUST-004</td>
+                                    <td>Sarah Tan</td>
+                                    <td>sarah.tan@email.com</td>
+                                    <td>+60 12-345 6792</td>
+                                    <td>2024-04-05</td>
+                                    <td>67</td>
+                                    <td><span class="status-badge success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CUST-005</td>
+                                    <td>Michael Wong</td>
+                                    <td>michael.wong@email.com</td>
+                                    <td>+60 12-345 6793</td>
+                                    <td>2024-05-12</td>
+                                    <td>12</td>
+                                    <td><span class="status-badge pending">Inactive</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CUST-006</td>
+                                    <td>Lisa Chen</td>
+                                    <td>lisa.chen@email.com</td>
+                                    <td>+60 12-345 6794</td>
+                                    <td>2024-06-18</td>
+                                    <td>89</td>
+                                    <td><span class="status-badge success">Active</span></td>
+                                </tr>
+                                <tr>
+                                    <td>CUST-007</td>
+                                    <td>David Lim</td>
+                                    <td>david.lim@email.com</td>
+                                    <td>+60 12-345 6795</td>
+                                    <td>2024-07-22</td>
+                                    <td>5</td>
+                                    <td><span class="status-badge failed">Suspended</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
                 <div class="page hidden" id="accounts-page">
                     <h1 class="page-title">Accounts</h1>
-                    <div class="demo-content">
-                        <p>Account management - Demo data</p>
+                    <div class="stats-grid" style="margin-bottom: 2rem;">
+                        <div class="stat-card">
+                            <div class="stat-label">Total Accounts</div>
+                            <div class="stat-value"><span class="amount">3</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Active Accounts</div>
+                            <div class="stat-value"><span class="amount">2</span></div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Pending Verification</div>
+                            <div class="stat-value"><span class="amount">1</span></div>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ACCOUNT NAME ↕</th>
+                                    <th>ACCOUNT TYPE ↕</th>
+                                    <th>BANK NAME ↕</th>
+                                    <th>ACCOUNT NUMBER ↕</th>
+                                    <th>STATUS ↕</th>
+                                    <th>CREATED ↕</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Main Business Account</td>
+                                    <td>Current Account</td>
+                                    <td>Maybank</td>
+                                    <td>****1234</td>
+                                    <td><span class="status-badge success">Active</span></td>
+                                    <td>2024-01-10</td>
+                                </tr>
+                                <tr>
+                                    <td>Secondary Account</td>
+                                    <td>Savings Account</td>
+                                    <td>CIMB Bank</td>
+                                    <td>****5678</td>
+                                    <td><span class="status-badge success">Active</span></td>
+                                    <td>2024-03-15</td>
+                                </tr>
+                                <tr>
+                                    <td>Reserve Account</td>
+                                    <td>Current Account</td>
+                                    <td>Public Bank</td>
+                                    <td>****9012</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td>2024-12-20</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -641,6 +783,290 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Onboarding Page -->
+                <div class="page hidden" id="onboarding-page">
+                    <h1 class="page-title">Merchant Onboarding</h1>
+                    <div class="onboarding-container">
+                        <div class="onboarding-card">
+                            <!-- Progress Steps -->
+                            <div class="onboarding-progress">
+                                <div class="progress-step active" data-step="1">
+                                    <div class="step-number">1</div>
+                                    <div class="step-label">Business Info</div>
+                                </div>
+                                <div class="progress-line"></div>
+                                <div class="progress-step" data-step="2">
+                                    <div class="step-number">2</div>
+                                    <div class="step-label">Bank Details</div>
+                                </div>
+                                <div class="progress-line"></div>
+                                <div class="progress-step" data-step="3">
+                                    <div class="step-number">3</div>
+                                    <div class="step-label">Documents</div>
+                                </div>
+                                <div class="progress-line"></div>
+                                <div class="progress-step" data-step="4">
+                                    <div class="step-number">4</div>
+                                    <div class="step-label">Review</div>
+                                </div>
+                            </div>
+
+                            <!-- Step 1: Business Information -->
+                            <div class="onboarding-step active" id="step-1">
+                                <h2 class="step-title">Business Information</h2>
+                                <p class="step-subtitle">Please provide your business details</p>
+                                
+                                <div class="form-group">
+                                    <label>Business Name *</label>
+                                    <input type="text" class="form-input" id="business-name" placeholder="Enter business name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Business Registration Number (SSM/ROC) *</label>
+                                    <input type="text" class="form-input" id="business-reg" placeholder="e.g., 123456-A" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Business Type *</label>
+                                    <select class="form-input" id="business-type" required>
+                                        <option value="">Select business type</option>
+                                        <option value="sole-proprietor">Sole Proprietor</option>
+                                        <option value="partnership">Partnership</option>
+                                        <option value="sdn-bhd">Sdn Bhd</option>
+                                        <option value="bhd">Bhd</option>
+                                        <option value="llp">Limited Liability Partnership (LLP)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Business Address *</label>
+                                    <textarea class="form-input" id="business-address" rows="3" placeholder="Enter full business address" required></textarea>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>City *</label>
+                                        <input type="text" class="form-input" id="business-city" placeholder="City" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Postal Code *</label>
+                                        <input type="text" class="form-input" id="business-postal" placeholder="Postal code" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>State *</label>
+                                    <select class="form-input" id="business-state" required>
+                                        <option value="">Select state</option>
+                                        <option value="johor">Johor</option>
+                                        <option value="kedah">Kedah</option>
+                                        <option value="kelantan">Kelantan</option>
+                                        <option value="kl">Kuala Lumpur</option>
+                                        <option value="labuan">Labuan</option>
+                                        <option value="melaka">Melaka</option>
+                                        <option value="negeri-sembilan">Negeri Sembilan</option>
+                                        <option value="pahang">Pahang</option>
+                                        <option value="penang">Penang</option>
+                                        <option value="perak">Perak</option>
+                                        <option value="perlis">Perlis</option>
+                                        <option value="putrajaya">Putrajaya</option>
+                                        <option value="sabah">Sabah</option>
+                                        <option value="sarawak">Sarawak</option>
+                                        <option value="selangor">Selangor</option>
+                                        <option value="terengganu">Terengganu</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Contact Email *</label>
+                                    <input type="email" class="form-input" id="contact-email" placeholder="business@email.com" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Contact Phone *</label>
+                                    <input type="tel" class="form-input" id="contact-phone" placeholder="+60 12-345 6789" required>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Bank Account Details -->
+                            <div class="onboarding-step" id="step-2">
+                                <h2 class="step-title">Bank Account Information</h2>
+                                <p class="step-subtitle">Where we'll send your payouts</p>
+                                
+                                <div class="form-group">
+                                    <label>Account Holder Name *</label>
+                                    <input type="text" class="form-input" id="account-name" placeholder="Account holder name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Bank Name *</label>
+                                    <select class="form-input" id="bank-name" required>
+                                        <option value="">Select bank</option>
+                                        <option value="maybank">Maybank</option>
+                                        <option value="cimb">CIMB Bank</option>
+                                        <option value="public">Public Bank</option>
+                                        <option value="rhb">RHB Bank</option>
+                                        <option value="hong-leong">Hong Leong Bank</option>
+                                        <option value="ambank">AmBank</option>
+                                        <option value="uob">UOB Bank</option>
+                                        <option value="ocbc">OCBC Bank</option>
+                                        <option value="hsbc">HSBC Bank</option>
+                                        <option value="standard-chartered">Standard Chartered</option>
+                                        <option value="affin">Affin Bank</option>
+                                        <option value="alliance">Alliance Bank</option>
+                                        <option value="bank-islam">Bank Islam</option>
+                                        <option value="bsn">Bank Simpanan Nasional</option>
+                                        <option value="bank-rakyat">Bank Rakyat</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Account Number *</label>
+                                    <input type="text" class="form-input" id="account-number" placeholder="Enter account number" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Account Type *</label>
+                                    <select class="form-input" id="account-type" required>
+                                        <option value="">Select account type</option>
+                                        <option value="current">Current Account</option>
+                                        <option value="savings">Savings Account</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Bank Statement (Last 3 months) *</label>
+                                    <div class="file-upload">
+                                        <input type="file" class="file-input" id="bank-statement" accept=".pdf,.jpg,.jpeg,.png" required>
+                                        <label for="bank-statement" class="file-label">
+                                            <span class="file-icon">📄</span>
+                                            <span class="file-text">Upload Bank Statement</span>
+                                        </label>
+                                        <span class="file-name" id="bank-statement-name"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Documents Upload -->
+                            <div class="onboarding-step" id="step-3">
+                                <h2 class="step-title">Required Documents</h2>
+                                <p class="step-subtitle">Please upload the following documents for verification</p>
+                                
+                                <div class="form-group">
+                                    <label>Business Registration Certificate (SSM/ROC) *</label>
+                                    <div class="file-upload">
+                                        <input type="file" class="file-input" id="business-cert" accept=".pdf,.jpg,.jpeg,.png" required>
+                                        <label for="business-cert" class="file-label">
+                                            <span class="file-icon">📄</span>
+                                            <span class="file-text">Upload Business Certificate</span>
+                                        </label>
+                                        <span class="file-name" id="business-cert-name"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Identity Card (IC) / Passport (Director/Owner) *</label>
+                                    <div class="file-upload">
+                                        <input type="file" class="file-input" id="ic-passport" accept=".pdf,.jpg,.jpeg,.png" required>
+                                        <label for="ic-passport" class="file-label">
+                                            <span class="file-icon">🆔</span>
+                                            <span class="file-text">Upload IC/Passport</span>
+                                        </label>
+                                        <span class="file-name" id="ic-passport-name"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Proof of Address (Utility Bill / Bank Statement) *</label>
+                                    <div class="file-upload">
+                                        <input type="file" class="file-input" id="proof-address" accept=".pdf,.jpg,.jpeg,.png" required>
+                                        <label for="proof-address" class="file-label">
+                                            <span class="file-icon">🏠</span>
+                                            <span class="file-text">Upload Proof of Address</span>
+                                        </label>
+                                        <span class="file-name" id="proof-address-name"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Additional Documents (Optional)</label>
+                                    <div class="file-upload">
+                                        <input type="file" class="file-input" id="additional-docs" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                                        <label for="additional-docs" class="file-label">
+                                            <span class="file-icon">📎</span>
+                                            <span class="file-text">Upload Additional Documents</span>
+                                        </label>
+                                        <span class="file-name" id="additional-docs-name"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 4: Review and Submit -->
+                            <div class="onboarding-step" id="step-4">
+                                <h2 class="step-title">Review & Submit</h2>
+                                <p class="step-subtitle">Please review your information before submitting</p>
+                                
+                                <div class="review-section">
+                                    <h3>Business Information</h3>
+                                    <div class="review-item">
+                                        <span class="review-label">Business Name:</span>
+                                        <span class="review-value" id="review-business-name">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Registration Number:</span>
+                                        <span class="review-value" id="review-business-reg">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Business Type:</span>
+                                        <span class="review-value" id="review-business-type">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Contact Email:</span>
+                                        <span class="review-value" id="review-contact-email">-</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="review-section">
+                                    <h3>Bank Account</h3>
+                                    <div class="review-item">
+                                        <span class="review-label">Account Holder:</span>
+                                        <span class="review-value" id="review-account-name">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Bank Name:</span>
+                                        <span class="review-value" id="review-bank-name">-</span>
+                                    </div>
+                                    <div class="review-item">
+                                        <span class="review-label">Account Number:</span>
+                                        <span class="review-value" id="review-account-number">-</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="margin-top: 2rem;">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="terms-accept" required>
+                                        <span>I agree to the <a href="#" style="color: var(--accent-neon-cyan);">Terms & Conditions</a> and <a href="#" style="color: var(--accent-neon-cyan);">Privacy Policy</a> *</span>
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="data-consent" required>
+                                        <span>I consent to the processing of my personal data for verification purposes *</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Navigation Buttons -->
+                            <div class="onboarding-actions">
+                                <button class="btn btn-secondary" id="onboarding-prev-btn" style="display: none;">Previous</button>
+                                <button class="btn btn-primary" id="onboarding-next-btn">Next</button>
+                                <button class="btn btn-primary" id="onboarding-submit-btn" style="display: none;">Submit Application</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -648,5 +1074,14 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
 
 

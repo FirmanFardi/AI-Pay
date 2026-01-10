@@ -1,7 +1,29 @@
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Get all navigation items
+    // Mobile menu toggle
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (mobileMenuToggle && sidebar) {
+        mobileMenuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            sidebar.classList.toggle('active');
+        });
+    }
+
+    // Close mobile menu when clicking on nav item
     const navItems = document.querySelectorAll('.nav-item[data-page]');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
+                if (sidebar) sidebar.classList.remove('active');
+            }
+        });
+    });
+
+    // Get all navigation items
 
     // Handle navigation clicks
     navItems.forEach(item => {
@@ -45,7 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'payout': 'Payout',
             'settlement': 'Settlement',
             'reports': 'Reports',
-            'payment-form': 'Payment Form'
+            'payment-form': 'Payment Form',
+            'onboarding': 'Onboarding'
         };
 
         const breadcrumbText = pageNames[page] || page;
@@ -80,21 +103,170 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Search functionality
-    const searchBtn = document.querySelector('.filters-bar .btn-primary:last-child');
-    const searchInput = document.querySelector('.filters-bar .filter-input[type="text"]');
-    
-    if (searchBtn && searchInput) {
-        searchBtn.addEventListener('click', function() {
-            const searchTerm = searchInput.value;
-            console.log('Searching for:', searchTerm);
-            // In real app, this would filter the table
+    // Search and Filter Functionality
+    function initializeSearch() {
+        // Search functionality for Transaction page
+        const transactionSearchBtn = document.querySelector('#transaction-page .filters-bar .btn-primary:last-child');
+        const transactionSearchInput = document.querySelector('#transaction-page .filters-bar .filter-input[type="text"]');
+        
+        if (transactionSearchBtn && transactionSearchInput) {
+            transactionSearchBtn.addEventListener('click', function() {
+                filterTransactionTable();
+            });
+
+            transactionSearchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    filterTransactionTable();
+                }
+            });
+
+            transactionSearchInput.addEventListener('input', function() {
+                filterTransactionTable();
+            });
+        }
+
+        // Status filter for Transaction page
+        const transactionStatusFilter = document.querySelector('#transaction-page .filter-select');
+        if (transactionStatusFilter) {
+            transactionStatusFilter.addEventListener('change', function() {
+                filterTransactionTable();
+            });
+        }
+
+        // Search for Payout page
+        const payoutSearchBtn = document.querySelector('#payout-page .filters-bar .btn-primary:last-child');
+        const payoutSearchInput = document.querySelector('#payout-page .filters-bar .filter-input[type="text"]');
+        
+        if (payoutSearchBtn) {
+            payoutSearchBtn.addEventListener('click', function() {
+                filterPayoutTable();
+            });
+        }
+
+        // Search for Settlement page
+        const settlementSearchBtn = document.querySelector('#settlement-page .filters-bar .btn-primary:last-child');
+        if (settlementSearchBtn) {
+            settlementSearchBtn.addEventListener('click', function() {
+                filterSettlementTable();
+            });
+        }
+    }
+
+    function filterTransactionTable() {
+        const table = document.querySelector('#transaction-page .data-table tbody');
+        if (!table) return;
+
+        const searchInput = document.querySelector('#transaction-page .filters-bar .filter-input[type="text"]');
+        const statusFilter = document.querySelector('#transaction-page .filter-select');
+        
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+        const statusFilterValue = statusFilter ? statusFilter.value : 'All Status';
+        
+        const rows = table.querySelectorAll('tr');
+        
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            const statusBadge = row.querySelector('.status-badge');
+            const status = statusBadge ? statusBadge.textContent.trim() : '';
+            
+            const matchesSearch = !searchTerm || text.includes(searchTerm);
+            const matchesStatus = statusFilterValue === 'All Status' || 
+                (statusFilterValue === 'Success' && status === 'Success') ||
+                (statusFilterValue === 'Pending' && status === 'Pending') ||
+                (statusFilterValue === 'Failed' && status === 'Failed');
+            
+            row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+        });
+    }
+
+    function filterPayoutTable() {
+        const table = document.querySelector('#payout-page .data-table tbody');
+        if (!table) return;
+
+        const statusFilter = document.querySelector('#payout-page .filter-select');
+        const statusFilterValue = statusFilter ? statusFilter.value : 'All Status';
+        
+        const rows = table.querySelectorAll('tr');
+        
+        rows.forEach(row => {
+            const statusBadge = row.querySelector('.status-badge');
+            const status = statusBadge ? statusBadge.textContent.trim() : '';
+            
+            const matchesStatus = statusFilterValue === 'All Status' || 
+                (statusFilterValue === 'Completed' && status === 'Completed') ||
+                (statusFilterValue === 'Pending' && status === 'Pending') ||
+                (statusFilterValue === 'Failed' && status === 'Failed');
+            
+            row.style.display = matchesStatus ? '' : 'none';
+        });
+    }
+
+    function filterSettlementTable() {
+        const table = document.querySelector('#settlement-page .data-table tbody');
+        if (!table) return;
+
+        const statusFilter = document.querySelector('#settlement-page .filter-select');
+        const statusFilterValue = statusFilter ? statusFilter.value : 'All Status';
+        
+        const rows = table.querySelectorAll('tr');
+        
+        rows.forEach(row => {
+            const statusBadge = row.querySelector('.status-badge');
+            const status = statusBadge ? statusBadge.textContent.trim() : '';
+            
+            const matchesStatus = statusFilterValue === 'All Status' || 
+                (statusFilterValue === 'Settled' && status === 'Settled') ||
+                (statusFilterValue === 'Pending' && status === 'Pending') ||
+                (statusFilterValue === 'Processing' && status === 'Processing');
+            
+            row.style.display = matchesStatus ? '' : 'none';
+        });
+    }
+
+    // CSV Export Functionality
+    function exportToCSV(tableId, filename) {
+        const table = document.querySelector(`#${tableId} .data-table`);
+        if (!table) return;
+
+        let csv = [];
+        const rows = table.querySelectorAll('tr');
+
+        rows.forEach(row => {
+            if (row.style.display === 'none') return; // Skip hidden rows
+            
+            const cols = row.querySelectorAll('th, td');
+            const rowData = [];
+            
+            cols.forEach(col => {
+                // Remove status badge HTML and get text only
+                const text = col.textContent.replace(/\s+/g, ' ').trim();
+                rowData.push(`"${text}"`);
+            });
+            
+            csv.push(rowData.join(','));
         });
 
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                searchBtn.click();
-            }
+        const csvContent = csv.join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        
+        link.setAttribute('href', url);
+        link.setAttribute('download', filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // Initialize search on page load
+    initializeSearch();
+
+    // Add CSV export to Reports page
+    const exportBtn = document.querySelector('#reports-page .btn-secondary');
+    if (exportBtn) {
+        exportBtn.addEventListener('click', function() {
+            exportToCSV('reports-page', `reports-${new Date().toISOString().split('T')[0]}.csv`);
         });
     }
 
@@ -255,5 +427,187 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize payment form when DOM is ready
     initializePaymentForm();
+
+    // Onboarding Functionality
+    function initializeOnboarding() {
+        const onboardingPage = document.getElementById('onboarding-page');
+        if (!onboardingPage) return;
+
+        let currentStep = 1;
+        const totalSteps = 4;
+        const nextBtn = document.getElementById('onboarding-next-btn');
+        const prevBtn = document.getElementById('onboarding-prev-btn');
+        const submitBtn = document.getElementById('onboarding-submit-btn');
+
+        // File upload handlers
+        function setupFileUpload(inputId, nameId) {
+            const input = document.getElementById(inputId);
+            const nameDisplay = document.getElementById(nameId);
+            
+            if (input && nameDisplay) {
+                input.addEventListener('change', function(e) {
+                    if (this.files && this.files.length > 0) {
+                        if (this.multiple) {
+                            nameDisplay.textContent = `${this.files.length} file(s) selected`;
+                        } else {
+                            nameDisplay.textContent = this.files[0].name;
+                        }
+                    } else {
+                        nameDisplay.textContent = '';
+                    }
+                });
+            }
+        }
+
+        setupFileUpload('bank-statement', 'bank-statement-name');
+        setupFileUpload('business-cert', 'business-cert-name');
+        setupFileUpload('ic-passport', 'ic-passport-name');
+        setupFileUpload('proof-address', 'proof-address-name');
+        setupFileUpload('additional-docs', 'additional-docs-name');
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.onboarding-step').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.progress-step').forEach(s => s.classList.remove('active', 'completed'));
+            
+            // Show current step
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            // Update progress
+            for (let i = 1; i <= step; i++) {
+                const progressStep = document.querySelector(`.progress-step[data-step="${i}"]`);
+                if (progressStep) {
+                    if (i < step) {
+                        progressStep.classList.add('completed');
+                    } else {
+                        progressStep.classList.add('active');
+                    }
+                }
+            }
+            
+            // Update buttons
+            if (prevBtn) prevBtn.style.display = step > 1 ? 'inline-block' : 'none';
+            if (nextBtn) nextBtn.style.display = step < totalSteps ? 'inline-block' : 'none';
+            if (submitBtn) submitBtn.style.display = step === totalSteps ? 'inline-block' : 'none';
+        }
+
+        function validateStep(step) {
+            const stepElement = document.getElementById(`step-${step}`);
+            if (!stepElement) return false;
+            
+            const requiredFields = stepElement.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (field.type === 'checkbox') {
+                    if (!field.checked) {
+                        isValid = false;
+                        field.style.borderColor = 'var(--accent-neon-pink)';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                } else if (field.type === 'file') {
+                    if (!field.files || field.files.length === 0) {
+                        isValid = false;
+                        const uploadContainer = field.closest('.file-upload');
+                        if (uploadContainer) uploadContainer.style.borderColor = 'var(--accent-neon-pink)';
+                    } else {
+                        const uploadContainer = field.closest('.file-upload');
+                        if (uploadContainer) uploadContainer.style.borderColor = '';
+                    }
+                } else {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = 'var(--accent-neon-pink)';
+                    } else {
+                        field.style.borderColor = '';
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        function updateReview() {
+            const setReviewValue = (id, value) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value || '-';
+            };
+
+            setReviewValue('review-business-name', document.getElementById('business-name')?.value);
+            const businessType = document.getElementById('business-type');
+            setReviewValue('review-business-type', businessType?.options[businessType.selectedIndex]?.text);
+            setReviewValue('review-business-reg', document.getElementById('business-reg')?.value);
+            setReviewValue('review-contact-email', document.getElementById('contact-email')?.value);
+            setReviewValue('review-account-name', document.getElementById('account-name')?.value);
+            const bankName = document.getElementById('bank-name');
+            setReviewValue('review-bank-name', bankName?.options[bankName.selectedIndex]?.text);
+            const accountNum = document.getElementById('account-number')?.value;
+            setReviewValue('review-account-number', accountNum ? '****' + accountNum.slice(-4) : null);
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function() {
+                if (validateStep(currentStep)) {
+                    if (currentStep < totalSteps) {
+                        currentStep++;
+                        if (currentStep === totalSteps) {
+                            updateReview();
+                        }
+                        showStep(currentStep);
+                    }
+                } else {
+                    alert('Please fill in all required fields');
+                }
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function() {
+                if (currentStep > 1) {
+                    currentStep--;
+                    showStep(currentStep);
+                }
+            });
+        }
+
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function() {
+                if (validateStep(currentStep)) {
+                    alert('Application submitted successfully! Your application is under review. You will receive an email confirmation shortly.');
+                    currentStep = 1;
+                    showStep(currentStep);
+                } else {
+                    alert('Please complete all required fields and accept the terms');
+                }
+            });
+        }
+
+        // Initialize when page is shown
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    const isHidden = onboardingPage.classList.contains('hidden');
+                    if (!isHidden) {
+                        currentStep = 1;
+                        showStep(currentStep);
+                    }
+                }
+            });
+        });
+
+        observer.observe(onboardingPage, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        // Initial setup
+        if (!onboardingPage.classList.contains('hidden')) {
+            showStep(1);
+        }
+    }
+
+    // Initialize onboarding when DOM is ready
+    initializeOnboarding();
 });
 
