@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayNex - Development Milestones</title>
+    <!-- PRIORITY: bump `v=` when deploying updates (GitHub Pages cache-buster) -->
+    <link rel="stylesheet" href="styles.css?v=20260110.2">
+    <style>
+        /* Milestones Standalone Styles */
+        body {
+            background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Elements */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(123, 44, 191, 0.1) 0%, transparent 70%);
+            animation: rotate 25s linear infinite reverse;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .milestones-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .milestones-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-top: 2rem;
+        }
+
+        .milestones-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .milestones-logo .logo-pay {
+            background: linear-gradient(135deg, var(--accent-neon-cyan), var(--accent-neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .milestones-logo .logo-nex {
+            color: var(--text-primary);
+            font-weight: 300;
+        }
+
+        .milestones-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .milestones-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Progress Bar */
+        .progress-wrapper {
+            margin: 2rem 0 3rem;
+            text-align: center;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            height: 30px;
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 80%;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-neon-cyan), var(--accent-neon-purple));
+            border-radius: 30px 0 0 30px;
+            transition: width 0.5s ease-in-out;
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+
+        .progress-text {
+            margin-top: 1rem;
+            font-weight: 600;
+            color: var(--accent-neon-cyan);
+            font-size: 1.1rem;
+        }
+
+        /* Milestones */
+        .milestone {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--accent-neon-cyan);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .milestone:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-neon);
+            border-color: var(--accent-neon-cyan);
+        }
+
+        .milestone h2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .milestone label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .milestone label:hover {
+            color: var(--accent-neon-cyan);
+        }
+
+        .milestone ul {
+            padding-left: 1.5rem;
+            margin: 0;
+            list-style: none;
+        }
+
+        .milestone li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .milestone li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-neon-cyan);
+            font-weight: bold;
+        }
+
+        /* Checkbox Styling */
+        .milestone input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent-neon-cyan);
+            border-radius: 4px;
+        }
+
+        /* Notes Box */
+        .notes {
+            background: var(--bg-card);
+            border-left: 5px solid var(--accent-neon-purple);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            margin-top: 3rem;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .notes strong {
+            color: var(--accent-neon-purple);
+            display: block;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .notes ul {
+            padding-left: 1.5rem;
+            margin: 0;
+            list-style: none;
+        }
+
+        .notes li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .notes li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-neon-purple);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .milestones-container {
+                max-width: 100%;
+            }
+
+            .milestones-header {
+                margin-bottom: 2rem;
+                padding-top: 1rem;
+            }
+
+            .milestones-logo {
+                font-size: 2rem;
+            }
+
+            .milestones-subtitle {
+                font-size: 1rem;
+            }
+
+            .progress-bar {
+                max-width: 100%;
+                height: 25px;
+            }
+
+            .milestone {
+                padding: 1.25rem 1.5rem;
+            }
+
+            .milestone h2 {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                font-size: 1.1rem;
+            }
+
+            .notes {
+                padding: 1.25rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .milestones-logo {
+                font-size: 1.75rem;
+            }
+
+            .milestone {
+                padding: 1rem;
+            }
+
+            .milestone h2 {
+                font-size: 1rem;
+            }
+
+            .milestone li {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="milestones-container">
+        <div class="milestones-header">
+            <div class="milestones-logo">
+                <span class="logo-pay">Pay</span><span class="logo-nex">Nex</span>
+            </div>
+            <div class="milestones-subtitle">Development Milestones</div>
+            <div class="milestones-description">Scope: FPX Payments (Single Sponsoring Bank) – 12 Month Roadmap</div>
+        </div>
+
+        <div class="progress-wrapper">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">
+                0 / 12 Milestones Completed (0%)
+            </div>
+        </div>
+
+        <!-- Month 1 -->
+        <div class="milestone">
+            <h2>Month 1 – Platform Foundation
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Architecture design for modular payments platform</li>
+                <li>User authentication & Role-Based Access Control (RBAC)</li>
+                <li>Merchant onboarding workflows with sandbox data</li>
+                <li>Database schema design and secure storage encryption (AES-256)</li>
+            </ul>
+        </div>
+
+        <!-- Month 2 -->
+        <div class="milestone">
+            <h2>Month 2 – Compliance & Risk Controls
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Implement PCI DSS v4.0 compliance controls (encryption, tokenization, logging)</li>
+                <li>KYC/KYB verification workflow with fraud scoring</li>
+                <li>AML monitoring rules & transaction anomaly detection</li>
+                <li>Centralized tamper-proof audit logging</li>
+            </ul>
+        </div>
+
+        <!-- Month 3 -->
+        <div class="milestone">
+            <h2>Month 3 – Bank Engagement & Architecture Review
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Sponsoring bank application submission and required documentation</li>
+                <li>Provide technical architecture, security diagrams, and compliance evidence</li>
+                <li>Conduct threat modeling & security risk assessment for FPX flows</li>
+            </ul>
+        </div>
+
+        <!-- Month 4 -->
+        <div class="milestone">
+            <h2>Month 4 – FPX Sandbox Integration
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Integration with FPX sandbox APIs (requests, callbacks, status checks)</li>
+                <li>Implement idempotency and transaction state management</li>
+                <li>Logging & alerting for failed transactions or timeouts</li>
+            </ul>
+        </div>
+
+        <!-- Month 5 -->
+        <div class="milestone">
+            <h2>Month 5 – Extended Sandbox Testing
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Edge case testing: network failures, double-spend attempts, payment reversal</li>
+                <li>Load testing to simulate high TPS (Transactions Per Second)</li>
+                <li>Reconciliation testing against sandbox reports</li>
+                <li>Automated regression tests for all critical flows</li>
+            </ul>
+        </div>
+
+        <!-- Month 6 -->
+        <div class="milestone">
+            <h2>Month 6 – FPX Certification (UAT)
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Execute FPX test cases & obtain bank UAT approval</li>
+                <li>Bug fixes from certification feedback</li>
+                <li>Penetration testing (OWASP Top 10) and mitigation of findings</li>
+                <li>Record test evidence for audit and bank submission</li>
+            </ul>
+        </div>
+
+        <!-- Month 7 -->
+        <div class="milestone">
+            <h2>Month 7 – Pre-Production Hardening
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Security hardening: WAF, HTTPS/TLS 1.3, firewall rules</li>
+                <li>Performance tuning and caching strategies</li>
+                <li>24/7 system monitoring with alert escalation</li>
+                <li>Standard Operating Procedures (SOPs) for incidents & rollback</li>
+            </ul>
+        </div>
+
+        <!-- Month 8 -->
+        <div class="milestone">
+            <h2>Month 8 – Bank Approval & Production Setup
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Obtain final bank sign-off and production credentials</li>
+                <li>Deploy FPX to production environment with full logging</li>
+                <li>Enable real-time transaction monitoring dashboards</li>
+                <li>Validate integration with internal reconciliation engine</li>
+            </ul>
+        </div>
+
+        <!-- Month 9 -->
+        <div class="milestone">
+            <h2>Month 9 – Pilot Merchant Onboarding
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Onboard small group of pilot merchants (low-volume)</li>
+                <li>24/7 transaction monitoring with anomaly detection</li>
+                <li>Daily automated reconciliation reports</li>
+                <li>Capture merchant feedback and iterate</li>
+            </ul>
+        </div>
+
+        <!-- Month 10 -->
+        <div class="milestone">
+            <h2>Month 10 – Extended Pilot & Monitoring
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Gradually increase pilot merchant volume</li>
+                <li>Real-time fraud detection & automated alerts</li>
+                <li>API performance monitoring & detailed logs</li>
+                <li>Continuous merchant support & incident resolution</li>
+            </ul>
+        </div>
+
+        <!-- Month 11 -->
+        <div class="milestone">
+            <h2>Month 11 – Stabilization & Audit Readiness
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Internal audit for PCI DSS, AML, and KYC compliance</li>
+                <li>Bug fixes & platform optimization</li>
+                <li>Finalize operational procedures & escalation matrix</li>
+                <li>Prepare compliance evidence for regulators and bank audits</li>
+            </ul>
+        </div>
+
+        <!-- Month 12 -->
+        <div class="milestone">
+            <h2>Month 12 – Limited Commercial Launch
+                <label><input type="checkbox" class="milestone-check"> Completed</label>
+            </h2>
+            <ul>
+                <li>Gradual public rollout with controlled transaction volume</li>
+                <li>24/7 operational monitoring with automated alerts</li>
+                <li>Incident response readiness and SLA tracking</li>
+                <li>Continuous optimization and reporting to stakeholders</li>
+            </ul>
+        </div>
+
+        <div class="notes">
+            <strong>Important Notes:</strong>
+            <ul>
+                <li>FPX availability is subject to bank approval and certification.</li>
+                <li>Timeline includes extended testing and security hardening to reduce operational risk.</li>
+                <li>Scope excludes e-wallets and credit card processing.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('.milestone-check');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const total = checkboxes.length;
+
+        // Load saved progress from localStorage
+        function loadProgress() {
+            checkboxes.forEach((cb, index) => {
+                const saved = localStorage.getItem(`milestone-${index}`);
+                if (saved === 'true') {
+                    cb.checked = true;
+                }
+            });
+            updateProgress();
+        }
+
+        // Save progress to localStorage
+        function saveProgress() {
+            checkboxes.forEach((cb, index) => {
+                localStorage.setItem(`milestone-${index}`, cb.checked);
+            });
+        }
+
+        function updateProgress() {
+            const completed = document.querySelectorAll('.milestone-check:checked').length;
+            const percent = Math.round((completed / total) * 100);
+            progressFill.style.width = percent + '%';
+            progressText.textContent = completed + " / " + total + " Milestones Completed (" + percent + "%)";
+            saveProgress();
+        }
+
+        // Initialize
+        loadProgress();
+        checkboxes.forEach(cb => cb.addEventListener('change', updateProgress));
+    </script>
+</body>
+</html>
+
